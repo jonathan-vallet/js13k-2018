@@ -80,7 +80,7 @@ function getSightPolygon(sightX,sightY){
         var dx = Math.cos(angle);
         var dy = Math.sin(angle);
 
-        // Ray from center of screen to mouse
+        // Ray from center of screen to player
         var ray = {
             a:{x:sightX,y:sightY},
             b:{x:sightX+dx,y:sightY+dy}
