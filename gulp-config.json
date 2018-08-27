@@ -11,10 +11,6 @@
                 "includePaths": []
             }
         },
-        "sasslint": {
-            "source": ["sass/**/*.scss"],
-            "ignore": []
-        },
         "concatjs": {
             "source": ["scripts/**/*.js"],
             "watch": ["scripts/**/*.js"],

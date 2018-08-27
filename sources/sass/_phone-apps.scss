@@ -1,0 +1,122 @@
+.phone-app {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 33.3333%;
+    padding-top: 33.3333%;
+    background: red;
+}
+    
+.phone-health {
+    background: #ccc;
+}
+
+.phone-health-icon {
+    position: absolute;
+    top: 45px;
+    left: 38px;
+    background-color: #C44;
+    display: inline-block;
+    height: 30px;
+    margin: 0 10px;
+    transform: rotate(-45deg);
+    width: 30px;
+    
+    &::before,
+    &::after {
+        content: "";
+        background-color: #C44;
+        border-radius: 50%;
+        height: 30px;
+        position: absolute;
+        width: 30px;
+    }
+    
+    &::before {
+        top: -15px;
+        left: 0;
+    }
+    
+    &::after {
+        left: 15px;
+        top: 0;
+    }   
+}
+
+.phone-camera {
+    background: #66A;
+}
+
+.phone-camera-icon {
+    position:absolute;
+    display:block;
+    top: 40px;
+    left: 20%;
+    width: 60%;
+    height: 40%;
+    background-color:#000;
+    border-radius:5px;
+
+    &::after{
+        content:"";
+        display:block;
+        width: 35px;
+        height: 35px;
+        border: 7px solid #66A;
+        position:absolute;
+        top:15%;
+        left: 28%;
+        background-color:#000;
+        border-radius: 50%;
+    }
+    &::before{
+        content:"";
+        display:block;
+        width:50%;
+        height:10px;
+        position:absolute;
+        top:-16%;
+        left:25%;
+        background-color:#000;
+        border-radius:10px;
+    }
+}
+
+.phone-light {
+    background: #ccc;   
+}
+
+.phone-light-icon {
+    position: absolute;
+    display: block;
+    top: 38px;
+    left: 55px;
+    width: 16px;
+    height: 68px;
+    background-image: linear-gradient(to bottom, #000 62px, rgba(0, 0, 0, 0) 62px, rgba(0, 0, 0, 0) 65px, #000 65px, #000 68px);
+    &::before {
+        content: '';
+        height: 10px;
+        display: block;
+        position: relative;
+        left: -8px;
+        top: -12px;
+        border-top: 40px solid #000;
+        border-right: 16px solid transparent;
+        border-left: 16px solid transparent;    
+    }
+    &::after {
+        content: '';
+        display: block;
+    }
+}
+
+.phone-sound-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 80px;
+    line-height: 128px;   
+}
