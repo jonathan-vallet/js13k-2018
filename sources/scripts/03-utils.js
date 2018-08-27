@@ -3,7 +3,7 @@ function checkSize() {
     var wh = window.innerHeight;
 
     var GAME_WIDTH = 1400;
-    var GAME_HEIGHT = 900;
+    var GAME_HEIGHT = 1000;
 
     var scaleX = GAME_WIDTH / ww;
     var scaleY = (GAME_HEIGHT + 20) / wh;
