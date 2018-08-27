@@ -4,6 +4,8 @@ This repository allow you to quick start your JS13K project to develop, compile,
 
 Uses adfab-gulp-boilerplate to compile sass or less, concat you JS, minify your assets...with additional tasks to zip and improve minification
 
+[You can play the game here thanks to the GitHub Pages](https://jonathan-vallet.github.io/js13k-2018/index.html).
+
 ## Installing
 
 Run `npm install` in the project directory to install all needed packages.
