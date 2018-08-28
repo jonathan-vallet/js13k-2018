@@ -1,26 +1,32 @@
-function drawWalls() {
-    for(var i=0;i<segments.length;++i){
-        var segment = segments[i];
+function drawRooms() {
+    roomList.forEach((room) => {
         gameContext.strokeStyle = WALL_COLOR;
-        gameContext.lineWidth= 8;
-        gameContext.beginPath();
-        gameContext.moveTo(canvasCenterX + mapOffsetX + segment.a.x, canvasCenterY + mapOffsetY + segment.a.y);
-        gameContext.lineTo(canvasCenterX + mapOffsetX + segment.b.x, canvasCenterY + mapOffsetY + segment.b.y);
-        gameContext.stroke();
-    }
-    gameContext.fill();
+        gameContext.lineWidth= 6;
+        room.forEach((point, index) => {
+            if(index === 0) {
+                gameContext.beginPath();
+                gameContext.moveTo(canvasCenterX + mapOffsetX + point.x, canvasCenterY + mapOffsetY + point.y);
+            } else {
+                gameContext.lineTo(canvasCenterX + mapOffsetX + point.x, canvasCenterY + mapOffsetY + point.y);
+            }
+            if(index === room.length -1) {
+                gameContext.stroke();
+            }
+        });
+    });
 }
 
 function isColliding() {
     // Gets color data of the zone where the image will be drawn
     var colorData = gameContext.getImageData(canvasCenterX + playerOffsetX - 10, canvasCenterY + playerOffsetY - 10, 20, 20).data;
-    // Counts the number of pixels filled with our unique color 
+    // Counts the number of pixels filled with our unique color
     var wallPixelNumber = 0;
-    // TODO: set walls color in hexadecimal, or get dynamic value here if walls are changing color!
+    // TODO: set walls color in hexadecimal, or get dynamic value here if walls
+    // are changing color!
     for (var i = 0; i < colorData.length; i += 4) {
-      if(colorData[i] === 102 && colorData[i + 1] === 102 && colorData[i + 2] === 102) {
-          return true;
-      }
+        if(colorData[i] === 102 && colorData[i + 1] === 102 && colorData[i + 2] === 102) {
+            return true;
+        }
     }
 
     return false;
@@ -39,7 +45,7 @@ function draw(){
     var lightMovement =  frameDuration / 30;
 
     // First draw walls to detect collisions
-    drawWalls();
+    drawRooms();
     if(xDirection > 0) {
         if(playerOffsetX < PLAYER_BOX_OFFSET) {
             playerOffsetX += xMovement;
@@ -109,26 +115,13 @@ function draw(){
             lightOffsetY = Math.min(0, lightOffsetY + lightMovement);
         }
     }
-
-    // Sight Polygons
-    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
-
-    for(var angle=0;angle<Math.PI*2;angle+=(Math.PI*2)/10){
-        var dx = Math.cos(angle)*fuzzyRadius;
-        var dy = Math.sin(angle)*fuzzyRadius;
-        polygons.push(getSightPolygon(playerOffsetX + mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
-    };
-
-    // DRAW AS A GIANT POLYGON
-    for(var i=1;i<polygons.length;i++){
-        drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
-    }
-    drawPolygon(polygons[0],gameContext, FLOOR_COLOR);
-    drawWalls();
+    
+    drawShadows();
+    drawRooms();
 
     // Masked Foreground
-//    gameContext.globalCompositeOperation = "source-in";
-//    gameContext.drawImage(foreground,0,0);
+// gameContext.globalCompositeOperation = "source-in";
+// gameContext.drawImage(foreground,0,0);
     gameContext.globalCompositeOperation = "source-over";
 
     
@@ -140,11 +133,27 @@ function draw(){
     generateLightFilter();
 }
 
+function drawShadows() {
+    // Sight Polygons
+    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
+    for(var angle=0;angle<Math.PI*2;angle+=(Math.PI*2)/10){
+        var dx = Math.cos(angle)*fuzzyRadius;
+        var dy = Math.sin(angle)*fuzzyRadius;
+        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
+    };
+
+    // DRAW AS A GIANT POLYGON
+    for(var i=1;i < polygons.length; ++i){
+        drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
+    }
+    drawPolygon(polygons[0],gameContext, FLOOR_COLOR);
+}
+
 function drawPolygon(polygon,gameContext,fillStyle){
     gameContext.fillStyle = fillStyle;
     gameContext.beginPath();
     gameContext.moveTo(canvasCenterX + mapOffsetX + polygon[0].x, canvasCenterY + mapOffsetY +polygon[0].y);
-    for(var i=1;i<polygon.length;i++){
+    for(var i=1; i < polygon.length; ++i){
         var intersect = polygon[i];
         gameContext.lineTo(canvasCenterX + mapOffsetX + intersect.x, canvasCenterY + mapOffsetY + intersect.y);
     }
@@ -162,10 +171,10 @@ function drawLoop(){
     draw();
 }
 window.onload = function(){
-//    foreground.onload = function(){
-//        drawLoop();
-//    };
-//    foreground.src = "images/floor.jpg";
+// foreground.onload = function(){
+// drawLoop();
+// };
+// foreground.src = "images/floor.jpg";
     drawLoop();
 };
 
