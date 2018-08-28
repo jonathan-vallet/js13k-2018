@@ -136,7 +136,7 @@ function draw(){
 function drawShadows() {
     // Sight Polygons
     var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
-    for(var angle=0;angle<Math.PI*2;angle+=(Math.PI*2)/10){
+    for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
         var dx = Math.cos(angle)*fuzzyRadius;
         var dy = Math.sin(angle)*fuzzyRadius;
         polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
@@ -164,6 +164,7 @@ var frameDuration = 0;
 // DRAW LOOP
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
 function drawLoop(){
+    loopNumber = 0;
     var previousFrameTime = now;
     now = new Date();
     frameDuration = now - previousFrameTime;

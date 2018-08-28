@@ -1,5 +1,7 @@
 // Find intersection of RAY & SEGMENT
+var loopNumber = 0;
 function getIntersection(ray, segment) {
+    ++loopNumber;
     // RAY in parametric: Point + Delta*T1
     var r_px = ray[0].x;
     var r_py = ray[0].y;
@@ -39,15 +41,19 @@ function getIntersection(ray, segment) {
     };
 }
 
+const CHECK_LIGHT_RADIUS = 700;
 function getSightPolygon(sightX, sightY){
     var pointList =[];
     var pointKeyList = [];
-    // TODO: add points in player bounding view. exclude all points out of bounds for improved performance
+    // add points in player bounding view. exclude all points out of bounds for improved performance
+    
     roomList.forEach(room => {
         room.forEach(point => {
             if(pointKeyList.indexOf(point.x + '-' + point.y) < 0) {
-                pointKeyList.push(point.x + '-' + point.y);
-                pointList.push(point);
+                if((point.x + CHECK_LIGHT_RADIUS) > (playerOffsetX - mapOffsetX) && (point.x - CHECK_LIGHT_RADIUS) < (playerOffsetX - mapOffsetX) && (point.y + CHECK_LIGHT_RADIUS) > (playerOffsetY - mapOffsetY) && (point.y - CHECK_LIGHT_RADIUS) < (playerOffsetY - mapOffsetY)) {
+                    pointKeyList.push(point.x + '-' + point.y);
+                    pointList.push(point);
+                }
             }
         });
     });
@@ -79,15 +85,26 @@ function getSightPolygon(sightX, sightY){
         // Find CLOSEST intersection
         var closestIntersect = null;
         var segment;
+        var minX = Math.max(0, playerOffsetX - mapOffsetX - CHECK_LIGHT_RADIUS);
+        var maxX = Math.min(1000, playerOffsetX - mapOffsetX + CHECK_LIGHT_RADIUS);
+        var minY = Math.max(0, playerOffsetY - mapOffsetY - CHECK_LIGHT_RADIUS);
+        var maxY = Math.min(1000, playerOffsetY - mapOffsetY + CHECK_LIGHT_RADIUS);
+
         roomList.forEach(room => {
             for(var index = 0; index < room.length - 1; ++index){
                 segment = [room[index], room[index + 1]];
-                var intersect = getIntersection(ray, segment);
-                if(!intersect) {
-                    continue;
-                }
-                if(!closestIntersect || intersect.param<closestIntersect.param){
-                    closestIntersect=intersect;
+                // Checks if segment is in bounds
+                if(
+                    ((segment[0].x + CHECK_LIGHT_RADIUS) > (playerOffsetX - mapOffsetX) && (segment[0].x - CHECK_LIGHT_RADIUS) < (playerOffsetX - mapOffsetX) && (segment[0].y + CHECK_LIGHT_RADIUS) > (playerOffsetY - mapOffsetY) && (segment[0].y - CHECK_LIGHT_RADIUS) < (playerOffsetY - mapOffsetY)) ||
+                    ((segment[1].x + CHECK_LIGHT_RADIUS) > (playerOffsetX - mapOffsetX) && (segment[1].x - CHECK_LIGHT_RADIUS) < (playerOffsetX - mapOffsetX) && (segment[1].y + CHECK_LIGHT_RADIUS) > (playerOffsetY - mapOffsetY) && (segment[1].y - CHECK_LIGHT_RADIUS) < (playerOffsetY - mapOffsetY))
+                ) {
+                    var intersect = getIntersection(ray, segment);
+                    if(!intersect) {
+                        continue;
+                    }
+                    if(!closestIntersect || intersect.param<closestIntersect.param){
+                        closestIntersect=intersect;
+                    }
                 }
             }
         });
