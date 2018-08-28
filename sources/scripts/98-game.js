@@ -123,19 +123,32 @@ function draw(){
 // gameContext.globalCompositeOperation = "source-in";
 // gameContext.drawImage(foreground,0,0);
     gameContext.globalCompositeOperation = "source-over";
-
     
     // Draw dots / Player
     gameContext.fillStyle = '#F00';
     gameContext.beginPath();
     gameContext.arc(canvasCenterX + playerOffsetX, canvasCenterY + playerOffsetY, 10, 0, 2*Math.PI, false);
     gameContext.fill();
+
+    // Draws signal on floor
+    /*gameContext.fillStyle = '#4c4';
+    gameContext.beginPath();
+    gameContext.arc(canvasCenterX + mapOffsetX + signalPosition.x, canvasCenterY + mapOffsetY + signalPosition.y, 20, 0, 2*Math.PI, false);
+    gameContext.fill();*/
+    
+    updateSignalPower();
     generateLightFilter();
 }
 
 function drawShadows() {
     // Sight Polygons
     var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
+    
+    if(isTorchLit) {
+        var fuzzyRadius = 10;
+    } else {
+        var fuzzyRadius = 4;
+    }
     for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
         var dx = Math.cos(angle)*fuzzyRadius;
         var dy = Math.sin(angle)*fuzzyRadius;
@@ -180,13 +193,7 @@ window.onload = function(){
 };
 
 document.querySelector('.phone-light').onclick = () => {
-    if(circleLightRadius === 150) {
-        circleLightRadius = 80;
-        fuzzyRadius = 4;
-    } else {
-        circleLightRadius = 150;
-        fuzzyRadius = 10;
-    }
+    isTorchLit = !isTorchLit;
 };
 
 document.onkeydown = function(e){

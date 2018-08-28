@@ -8,7 +8,15 @@ function generateLightFilter() {
     var context = canvas.getContext('2d');
     
     // Gets light radius. Decrease over time, and has a small variation too to simulate firelight effect
-    var lightRadius = circleLightRadius;
+    
+    if(isTorchLit) {
+        var lightRadius = 150;
+        var lightSplash = 0.8;
+    } else {
+        var lightRadius = 100;
+        var lightSplash = 0.6;
+    }
+    
     var ligthBritghness = CIRCLE_LIGHT_BRIGHTNESS;
 
     // Fills a rect with opacity reduced of current brightness
@@ -20,7 +28,7 @@ function generateLightFilter() {
     var y = canvasCenterY + playerOffsetY
     var blurGradient = context.createRadialGradient(x + lightOffsetX, y + lightOffsetY, 0, x + lightOffsetX, y + lightOffsetY, Math.floor(lightRadius * 1000) / 1000);
     blurGradient.addColorStop(0, 'rgba(0,0,0,1)');
-    blurGradient.addColorStop(0.8, 'rgba(0,0,0,.95)');
+    blurGradient.addColorStop(lightSplash, 'rgba(0,0,0,.95)');
     blurGradient.addColorStop(1, 'rgba(0,0,0,0)');
     // Draw circle in destination-out to free circle of light
     context.fillStyle = blurGradient;

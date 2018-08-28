@@ -19,9 +19,11 @@ var canvasCenterY = gameCanvas.height/2;
 var lightOffsetX = 0;
 var lightOffsetY = 0;
 var now = +new Date();
-var circleLightRadius = 80; // Radius of light circle, in pixels
-var fuzzyRadius = 5;
 const CIRCLE_LIGHT_BRIGHTNESS = 0; // Brightness of the scene (opacity of none lightned part)
+var signalPosition = {x: 500, y: 250};
+var signal = document.querySelector('.signal-bar');
+var currentSignalPower = 1;
+var isTorchLit = false;
 
 var roomList = [
     // Border
