@@ -4,6 +4,8 @@ function updateSignalPower() {
     var power;
     if(distance < 50) {
         power = 5;
+        isTextDisplayed = true;
+        document.body.classList.add('phase-text');
     } else if(distance < 250) {
         power = 4;
     } else if(distance < 400) {

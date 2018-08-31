@@ -214,6 +214,12 @@ document.onkeydown = function(e){
             isSprinting = true;
         }
     }
+
+    if(isTextDisplayed) {
+        checkText(e.key);
+    }
+    var letter = document.querySelector('#iphone-keyboard button[data-char="' + e.key.toUpperCase() + '"')
+    letter && letter.classList.add('active');
 };
 
 document.onkeyup = function(e){
@@ -232,9 +238,13 @@ document.onkeyup = function(e){
         isSprinting = false;
     }
     gameCanvas.classList.remove('moving', 'sprinting');
+    
+    var letter = document.querySelector('#iphone-keyboard button[data-char="' + e.key.toUpperCase() + '"')
+    letter && letter.classList.remove('active');
 };
 
 window.addEventListener('resize', function(k) {
     checkSize();
 });
 checkSize();
+initKeyboard();

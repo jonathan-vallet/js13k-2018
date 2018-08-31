@@ -25,6 +25,30 @@ var signal = document.querySelector('.signal-bar');
 var currentSignalPower = 1;
 var isTorchLit = false;
 
+var currentTextIndex = 0;
+var textList = [
+    "Hello from the other side",
+    "I must have called a thousand times",
+
+    "I'll send an SOS to the world",
+    "I hope that someone gets my...",
+
+    "I'm still standing yeah yeah yeah",
+
+    "Hello darkness, my old friend",
+    "I've come to talk with you again",
+
+    "Lorem ipsum dolor sit amet,",
+    "consectetur adipiscing elit.",
+
+    "Mind, use your power",
+    "Spirit, use your wings",
+    "Freedom",
+    "Freedom",
+    "Freedom",
+    "Freedom",
+];
+
 var roomList = [
     // Border
     [
