@@ -1,4 +1,4 @@
-var $ = document.getElementById;
+var $ = function(id) { return document.getElementById( id ); };
 // Elements
 var gameWrapper = $('wrapper');
 var gameCanvas = $('game');

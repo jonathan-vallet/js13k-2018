@@ -9,7 +9,7 @@ function displayText() {
 }
 
 function checkText(letter) {
-    var currentLetter = $('text .current');
+    var currentLetter = $('text').querySelector('.current');
     if(letter.toLowerCase() === currentLetter.getAttribute('data-val').toLowerCase()) {
         currentLetter.classList.remove('current');
         currentLetter.classList.add('checked');
