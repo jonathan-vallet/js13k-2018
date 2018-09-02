@@ -23,12 +23,17 @@ var lightOffsetX = 0;
 var lightOffsetY = 0;
 var now = +new Date();
 const CIRCLE_LIGHT_BRIGHTNESS = 0; // Brightness of the scene (opacity of none lightned part)
-var signalPosition = {x: 500, y: 250};
-var signal = document.querySelector('.signal-bar');
+var signalPosition = {x: 500, y: 250}
 var currentSignalPower = 1;
 var isTorchLit = false;
-
 var currentTextIndex = 0;
+var gamePhase = 1;
+
+// Elements
+var signal = document.querySelector('#signal-bar');
+var compass = document.querySelector('#compass-pointer-wrapper');
+
+
 var textList = [
     "Hello from the other side",
     "I must have called a thousand times",
@@ -42,13 +47,9 @@ var textList = [
     "I've come to talk with you again",
 
     "Lorem ipsum dolor sit amet,",
-    "consectetur adipiscing elit.",
 
     "Mind, use your power",
     "Spirit, use your wings",
-    "Freedom",
-    "Freedom",
-    "Freedom",
     "Freedom",
 ];
 

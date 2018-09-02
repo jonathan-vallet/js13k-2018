@@ -1,7 +1,7 @@
 $signal-strength-bar-height: 100px;
 $signal-strength-bar-width: 150px;
 
-.signal-bar {
+#signal-bar {
     position: absolute;
     bottom: 150px;
     left: calc(50% - #{$signal-strength-bar-width / 2});

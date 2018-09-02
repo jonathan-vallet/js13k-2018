@@ -118,6 +118,7 @@ function draw(){
     
     drawShadows();
     drawRooms();
+    drawStairs();
 
     // Masked Foreground
 // gameContext.globalCompositeOperation = "source-in";
@@ -125,9 +126,9 @@ function draw(){
     gameContext.globalCompositeOperation = "source-over";
     
     drawPlayer();
-    
+    setCompassAngle();
     updateSignalPower();
-    generateLightFilter();
+//    generateLight Filter();
 }
 
 function drawShadows() {
@@ -241,6 +242,36 @@ function initGame() {
     checkSize();
     initKeyboard();
     initPlayer();
+    initStairs();
+}
+
+function setCompassAngle() {
+    var angle = Math.atan2(mapOffsetY + stairs.y - playerOffsetY, mapOffsetX + stairs.x - playerOffsetX) * 180 / Math.PI - 14;
+    compass.style.transform = 'rotate(' + angle + 'deg)';
+}
+
+var stairs = {x: 50, y: 150, w: 50, h: 75};
+function initStairs() {
+    roomList.push([
+        {x: stairs.x - stairs.w / 2, y: stairs.y},
+        {x: stairs.x - stairs.w / 2, y: stairs.y + stairs.h},
+        {x: stairs.x + stairs.w / 2, y: stairs.y + stairs.h},
+        {x: stairs.x + stairs.w / 2, y: stairs.y},
+    ])
+}
+
+function drawStairs() {
+    var x = canvasCenterX + mapOffsetX + stairs.x - stairs.w / 2;
+    var y = canvasCenterY + mapOffsetY + stairs.y;
+
+    var stairHeight = 15;
+    for(var index = 0; index <= 4; ++index) {
+        var gradient = gameContext.createLinearGradient(x, y + stairHeight * index, x, y +stairHeight * (index + 1));
+        gradient.addColorStop(0, 'black');
+        gradient.addColorStop(1, 'white');
+        gameContext.fillStyle= gradient;
+        gameContext.fillRect(x, y + (stairHeight * index), 50, stairHeight);
+    }   
 }
 
 initGame();
