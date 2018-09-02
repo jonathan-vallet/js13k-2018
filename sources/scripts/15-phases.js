@@ -2,6 +2,7 @@
 function startTextPhase() {
     gamePhase = 2;
     document.body.classList.add('phase-text');
+    displayText();
     startCountdown();
 }
 

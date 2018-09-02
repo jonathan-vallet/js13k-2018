@@ -127,3 +127,36 @@ function getSightPolygon(sightX, sightY){
     // Polygon is intersects, in order of angle
     return intersects;
 }
+
+function drawShadows() {
+    // Sight Polygons
+    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
+    
+    if(isTorchLit) {
+        var fuzzyRadius = 10;
+    } else {
+        var fuzzyRadius = 4;
+    }
+    for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
+        var dx = Math.cos(angle)*fuzzyRadius;
+        var dy = Math.sin(angle)*fuzzyRadius;
+        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
+    };
+
+    // DRAW AS A GIANT POLYGON
+    for(var i=1;i < polygons.length; ++i){
+        drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
+    }
+    drawPolygon(polygons[0],gameContext, FLOOR_COLOR);
+}
+
+function drawPolygon(polygon,gameContext,fillStyle){
+    gameContext.fillStyle = fillStyle;
+    gameContext.beginPath();
+    gameContext.moveTo(canvasCenterX + mapOffsetX + polygon[0].x, canvasCenterY + mapOffsetY +polygon[0].y);
+    for(var i=1; i < polygon.length; ++i){
+        var intersect = polygon[i];
+        gameContext.lineTo(canvasCenterX + mapOffsetX + intersect.x, canvasCenterY + mapOffsetY + intersect.y);
+    }
+    gameContext.fill();
+}

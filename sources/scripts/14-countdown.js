@@ -1,8 +1,7 @@
-var time = '3000';
 function startCountdown() {
     var startTime = +new Date();
     var countdownInterval = setInterval(function() {
-        var remainingTime = Math.max(0, time - now + startTime);
+        var remainingTime = Math.max(0, countdownTime - now + startTime);
         var seconds = Math.floor(remainingTime / 1000 % 100);
         var milliseconds = Math.floor(remainingTime / 10 % 100);
      // Output the result in an element with id="demo"

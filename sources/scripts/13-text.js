@@ -21,5 +21,3 @@ function checkText(letter) {
         }
     }
 }
-var isTextDisplayed = false;
-displayText();

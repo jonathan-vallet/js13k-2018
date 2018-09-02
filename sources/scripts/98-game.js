@@ -1,78 +1,23 @@
-function drawRooms() {
-    roomList.forEach((room) => {
-        gameContext.strokeStyle = WALL_COLOR;
-        gameContext.lineWidth= 6;
-        room.forEach((point, index) => {
-            if(index === 0) {
-                gameContext.beginPath();
-                gameContext.moveTo(canvasCenterX + mapOffsetX + point.x, canvasCenterY + mapOffsetY + point.y);
-            } else {
-                gameContext.lineTo(canvasCenterX + mapOffsetX + point.x, canvasCenterY + mapOffsetY + point.y);
-            }
-            if(index === room.length -1) {
-                gameContext.stroke();
-            }
-        });
-    });
-}
-
-function isColliding() {
-    // Gets color data of the zone where the image will be drawn
-    var colorData = gameContext.getImageData(canvasCenterX + playerOffsetX - 10, canvasCenterY + playerOffsetY - 10, 20, 20).data;
-    // Counts the number of pixels filled with our unique color
-    var wallPixelNumber = 0;
-    // TODO: set walls color in hexadecimal, or get dynamic value here if walls
-    // are changing color!
-    for (var i = 0; i < colorData.length; i += 4) {
-        if(colorData[i] === 102 && colorData[i + 1] === 102 && colorData[i + 2] === 102) {
-            return true;
-        }
-    }
-
-    return false;
-}
-
 // DRAWING
-function draw(){
+function draw() {
     // Clear canvas
     gameContext.clearRect(0,0,gameCanvas.width,gameCanvas.height);
     gameContext.fillStyle = '#000';
     gameContext.fillRect(0,0,gameCanvas.width,gameCanvas.height);
     
     // Sets new player position
-    var xMovement = xDirection * (isSprinting ? SPRINT_SPEED: MOVE_SPEED);
-    var yMovement = yDirection * (isSprinting ? SPRINT_SPEED: MOVE_SPEED);
+    var [xMovement, yMovement] = checkCollision();
+    
     var lightMovement =  frameDuration / 30;
 
     // First draw walls to detect collisions
-    drawRooms();
-    if(xDirection > 0) {
-        if(playerOffsetX < PLAYER_BOX_OFFSET) {
+    if(xDirection !== 0) {
+        if(xDirection > 0 && playerOffsetX < PLAYER_BOX_OFFSET || xDirection < 0 && playerOffsetX > -PLAYER_BOX_OFFSET) {
             playerOffsetX += xMovement;
-            if(isColliding()) {
-                playerOffsetX -= xMovement;
-            }
         } else {
             mapOffsetX -= xMovement;
-            if(isColliding()) {
-                mapOffsetX += xMovement;
-            }
         }
-        lightOffsetX = Math.min(lightOffsetX + lightMovement, 20);
-    }
-    else if(xDirection < 0) {
-        if(playerOffsetX > -PLAYER_BOX_OFFSET) {
-            playerOffsetX += xMovement;
-            if(isColliding()) {
-                playerOffsetX -= xMovement;
-            }
-        } else {
-            mapOffsetX -= xMovement;
-            if(isColliding()) {
-                mapOffsetX += xMovement;
-            }
-        }
-        lightOffsetX = Math.max(lightOffsetX - lightMovement, -20);
+        lightOffsetX = Math.min(20, Math.max(lightOffsetX + lightMovement * xDirection, -20));
     } else {
         if(lightOffsetX > 0) {
             lightOffsetX = Math.max(0, lightOffsetX - lightMovement);
@@ -81,33 +26,13 @@ function draw(){
         }
     }
     
-    if(yDirection > 0) {
-        if(playerOffsetY < PLAYER_BOX_OFFSET) {
+    if(yDirection !== 0) {
+        if(yDirection > 0 && playerOffsetY < PLAYER_BOX_OFFSET || yDirection < 0 && playerOffsetY > -PLAYER_BOX_OFFSET) {
             playerOffsetY += yMovement;
-            if(isColliding()) {
-                playerOffsetY -= yMovement;
-            }
         } else {
             mapOffsetY -= yMovement;
-            if(isColliding()) {
-                mapOffsetY += yMovement;
-            }
         }
-        lightOffsetY = Math.min(lightOffsetY + lightMovement, 20);
-    }
-    else if(yDirection < 0) {
-        if(playerOffsetY > -PLAYER_BOX_OFFSET) {
-            playerOffsetY += yMovement;
-            if(isColliding()) {
-                playerOffsetY -= yMovement;
-            }
-        } else {
-            mapOffsetY -= yMovement;
-            if(isColliding()) {
-                mapOffsetY += yMovement;
-            }
-        }
-        lightOffsetY = Math.max(lightOffsetY - lightMovement, -20);
+        lightOffsetY = Math.min(20, Math.max(lightOffsetY + lightMovement * yDirection, -20));
     } else {
         if(lightOffsetY > 0) {
             lightOffsetY = Math.max(0, lightOffsetY - lightMovement);
@@ -116,9 +41,10 @@ function draw(){
         }
     }
     
+
+    
     drawShadows();
-    drawRooms();
-    drawStairs();
+    drawMap();
 
     // Masked Foreground
 // gameContext.globalCompositeOperation = "source-in";
@@ -126,42 +52,16 @@ function draw(){
     gameContext.globalCompositeOperation = "source-over";
     
     drawPlayer();
-    setCompassAngle();
-    updateSignalPower();
-//    generateLight Filter();
-}
-
-function drawShadows() {
-    // Sight Polygons
-    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
+    generateLightFilter();
+    if(gamePhase === 1) {
+        updateSignalPower();
+    } else if(gamePhase === 3) {
+        setCompassAngle();
+        if(isPlayerOnStairs()) {
+            endLevel();
+        }
+    }
     
-    if(isTorchLit) {
-        var fuzzyRadius = 10;
-    } else {
-        var fuzzyRadius = 4;
-    }
-    for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
-        var dx = Math.cos(angle)*fuzzyRadius;
-        var dy = Math.sin(angle)*fuzzyRadius;
-        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
-    };
-
-    // DRAW AS A GIANT POLYGON
-    for(var i=1;i < polygons.length; ++i){
-        drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
-    }
-    drawPolygon(polygons[0],gameContext, FLOOR_COLOR);
-}
-
-function drawPolygon(polygon,gameContext,fillStyle){
-    gameContext.fillStyle = fillStyle;
-    gameContext.beginPath();
-    gameContext.moveTo(canvasCenterX + mapOffsetX + polygon[0].x, canvasCenterY + mapOffsetY +polygon[0].y);
-    for(var i=1; i < polygon.length; ++i){
-        var intersect = polygon[i];
-        gameContext.lineTo(canvasCenterX + mapOffsetX + intersect.x, canvasCenterY + mapOffsetY + intersect.y);
-    }
-    gameContext.fill();
 }
 
 var frameDuration = 0;
@@ -206,7 +106,7 @@ document.onkeydown = function(e){
         }
     }
 
-    if(isTextDisplayed) {
+    if(gamePhase === 2) {
         checkText(e.key);
     }
     var letter = document.querySelector('#iphone-keyboard button[data-char="' + e.key.toUpperCase() + '"')
@@ -240,38 +140,14 @@ window.addEventListener('resize', function(k) {
 
 function initGame() {
     checkSize();
+    initMap();
     initKeyboard();
     initPlayer();
-    initStairs();
+    startCompassPhase();
 }
 
-function setCompassAngle() {
-    var angle = Math.atan2(mapOffsetY + stairs.y - playerOffsetY, mapOffsetX + stairs.x - playerOffsetX) * 180 / Math.PI - 14;
-    compass.style.transform = 'rotate(' + angle + 'deg)';
+function endLevel() {
+    console.log('yeah!!');
+    initGame();
 }
-
-var stairs = {x: 50, y: 150, w: 50, h: 75};
-function initStairs() {
-    roomList.push([
-        {x: stairs.x - stairs.w / 2, y: stairs.y},
-        {x: stairs.x - stairs.w / 2, y: stairs.y + stairs.h},
-        {x: stairs.x + stairs.w / 2, y: stairs.y + stairs.h},
-        {x: stairs.x + stairs.w / 2, y: stairs.y},
-    ])
-}
-
-function drawStairs() {
-    var x = canvasCenterX + mapOffsetX + stairs.x - stairs.w / 2;
-    var y = canvasCenterY + mapOffsetY + stairs.y;
-
-    var stairHeight = 15;
-    for(var index = 0; index <= 4; ++index) {
-        var gradient = gameContext.createLinearGradient(x, y + stairHeight * index, x, y +stairHeight * (index + 1));
-        gradient.addColorStop(0, 'black');
-        gradient.addColorStop(1, 'white');
-        gameContext.fillStyle= gradient;
-        gameContext.fillRect(x, y + (stairHeight * index), 50, stairHeight);
-    }   
-}
-
 initGame();

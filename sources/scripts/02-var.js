@@ -12,8 +12,6 @@ var playerRotation = 0; // Player oriention to draw in correc direction while mo
 var playerCanvas; // canvas to draw player image
 var playerMovingTime = 0;
 var startTime = +new Date();
-const MOVE_SPEED = 1;
-const SPRINT_SPEED = 2.5;
 const FLOOR_COLOR = '#eee';
 const WALL_COLOR = '#666';
 const PLAYER_BOX_OFFSET = 250;
@@ -28,6 +26,11 @@ var currentSignalPower = 1;
 var isTorchLit = false;
 var currentTextIndex = 0;
 var gamePhase = 1;
+
+// Gameplay (level design var to ajust)
+var countdownTime = '15000';
+const MOVE_SPEED = 1;
+const SPRINT_SPEED = 2.5;
 
 // Elements
 var signal = document.querySelector('#signal-bar');
@@ -53,6 +56,7 @@ var textList = [
     "Freedom",
 ];
 
+// Map
 var roomList = [
     // Border
     [
@@ -231,3 +235,5 @@ var roomList = [
         {x:450,y:900},
     ],
 ];
+
+var stairs = {x: 970, y: 920, w: 50, h: 75};
