@@ -49,8 +49,8 @@ module.exports = function() {
             }
         }
 
-        //return task.pipe(zip(zipConfig.filename))
-            return task.pipe(gulp.dest(zipConfig.destination))
+        return task.pipe(zip(zipConfig.filename))
+            .pipe(gulp.dest(zipConfig.destination))
             .pipe(checkFileSize({
                 fileSizeLimit: 16384
             }));
