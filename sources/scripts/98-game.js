@@ -1,5 +1,21 @@
 // DRAWING
 function draw() {
+    if(goLeft) {
+        xDirection = -1;
+    } else if(goRight) {
+        xDirection = 1;
+    } else {
+        xDirection = 0;
+    }
+
+    if(goTop) {
+        yDirection = -1;
+    } else if(goBottom) {
+        yDirection = 1;
+    } else {
+        yDirection = 0;
+    }
+    
     // Clear canvas
     gameContext.clearRect(0,0,gameCanvas.width,gameCanvas.height);
     gameContext.fillStyle = '#000';
@@ -41,8 +57,6 @@ function draw() {
         }
     }
     
-
-    
     drawShadows();
     drawMap();
 
@@ -64,17 +78,17 @@ function draw() {
     
 }
 
-var frameDuration = 0;
 // DRAW LOOP
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
 function drawLoop(){
-    loopNumber = 0;
     var previousFrameTime = now;
     now = new Date();
     frameDuration = now - previousFrameTime;
+    
     requestAnimationFrame(drawLoop);
     draw();
 }
+
 window.onload = function(){
 // foreground.onload = function(){
 // drawLoop();
@@ -83,67 +97,12 @@ window.onload = function(){
     drawLoop();
 };
 
-document.querySelector('.phone-light').onclick = () => {
-    isTorchLit = !isTorchLit;
-};
-
-document.onkeydown = function(e){
-    var code = e.keyCode;
-    if (code === 39) {
-        xDirection = 1;
-    } else if (code === 37) {
-        xDirection = -1;
-    }
-    if (code === 38) {
-        yDirection = -1;
-    } else if (code === 40) {
-        yDirection = 1;
-    }
-    if(xDirection !== 0 || yDirection !== 0) {
-        gameCanvas.classList.add(e.shiftKey ? 'sprinting' : 'moving');
-        if(e.shiftKey) {
-            isSprinting = true;
-        }
-    }
-
-    if(gamePhase === 2) {
-        checkText(e.key);
-    }
-    var letter = document.querySelector('#iphone-keyboard button[data-char="' + e.key.toUpperCase() + '"')
-    letter && letter.classList.add('active');
-};
-
-document.onkeyup = function(e){
-    var code = e.keyCode;
-    if (code === 39) {
-        xDirection = 0;
-    } else if (code === 37) {
-        xDirection = 0;
-    }
-    if (code === 38) {
-        yDirection = 0;
-    } else if (code === 40) {
-        yDirection = 0;
-    }
-    if(!e.shiftKey) {
-        isSprinting = false;
-    }
-    gameCanvas.classList.remove('moving', 'sprinting');
-    
-    var letter = document.querySelector('#iphone-keyboard button[data-char="' + e.key.toUpperCase() + '"')
-    letter && letter.classList.remove('active');
-};
-
-window.addEventListener('resize', function(k) {
-    checkSize();
-});
 
 function initGame() {
     checkSize();
     initMap();
     initKeyboard();
     initPlayer();
-    startCompassPhase();
 }
 
 function endLevel() {

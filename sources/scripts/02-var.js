@@ -1,8 +1,11 @@
-var gameWrapper = document.getElementById('wrapper');
-var gameCanvas = document.getElementById('game');
+var $ = document.getElementById;
+// Elements
+var gameWrapper = $('wrapper');
+var gameCanvas = $('game');
+var signal = $('signal-bar');
+var compass = $('compass-pointer-wrapper');
+
 var gameContext = gameCanvas.getContext('2d');
-var xDirection = 0;
-var yDirection = 0;
 var mapOffsetX = -50;
 var mapOffsetY = -50;
 var isSprinting = false;
@@ -17,24 +20,33 @@ const WALL_COLOR = '#666';
 const PLAYER_BOX_OFFSET = 250;
 var canvasCenterX = gameCanvas.width/2;
 var canvasCenterY = gameCanvas.height/2;
+const CIRCLE_LIGHT_BRIGHTNESS = 0; // Brightness of the scene (opacity of none lightned part)
+
+// Game / Level data
+var currentTextIndex = 0;
+var gamePhase = 1;
+var currentSignalPower = 1;
+var signalPosition = {x: 500, y: 250}
+
+// Game state
+var isTorchLit = false;
+var goLeft = false;
+var goRight = false;
+var goTop = false;
+var goBottom = false;
 var lightOffsetX = 0;
 var lightOffsetY = 0;
 var now = +new Date();
-const CIRCLE_LIGHT_BRIGHTNESS = 0; // Brightness of the scene (opacity of none lightned part)
-var signalPosition = {x: 500, y: 250}
-var currentSignalPower = 1;
-var isTorchLit = false;
-var currentTextIndex = 0;
-var gamePhase = 1;
+var frameDuration = 0;
+var xDirection = 0;
+var yDirection = 0;
+
 
 // Gameplay (level design var to ajust)
 var countdownTime = '15000';
 const MOVE_SPEED = 1;
 const SPRINT_SPEED = 2.5;
 
-// Elements
-var signal = document.querySelector('#signal-bar');
-var compass = document.querySelector('#compass-pointer-wrapper');
 
 
 var textList = [

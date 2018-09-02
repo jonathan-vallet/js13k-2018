@@ -4,7 +4,7 @@ function initKeyboard() {
         'ASDFGHJKL',
         "ZXCVBNM,.'",
     ]
-    var keyboard = document.querySelector('#iphone-keyboard');
+    var keyboard = $('iphone-keyboard');
     var keyboardHTML = '';
     lineList.forEach(letterList => {
         keyboardHTML += '<li>';

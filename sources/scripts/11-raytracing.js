@@ -1,7 +1,5 @@
 // Find intersection of RAY & SEGMENT
-var loopNumber = 0;
 function getIntersection(ray, segment) {
-    ++loopNumber;
     // RAY in parametric: Point + Delta*T1
     var r_px = ray[0].x;
     var r_py = ray[0].y;
