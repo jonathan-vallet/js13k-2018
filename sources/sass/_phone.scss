@@ -1,45 +1,15 @@
-.phone {
+#phone {
     display: inline-block;
     position: absolute;
     top: 0;
     right: 0;
-    box-sizing: content-box !important;
-    width: 375px;
-    height: 667px;
+    width: 423px;
+    height: 877px;
     padding: 105px 24px;
     border-radius: 56px;
     background: #464646;
     box-shadow: inset 0 0 3px 0 rgba(0, 0, 0, 0.7);
     transform: scale(0.7);
-    .screen {
-        width: 100%;
-        position: relative;
-        height: 100%;
-        z-index: 3;
-        background: white;
-        overflow: hidden;
-        display: block;
-        border-radius: 1px;
-        //box-shadow: 0 0 20px #fff;
-        background: #222;
-    }
-
-    .top-bar, .bottom-bar {
-        height: 3px;
-        background: black;
-        width: 100%;
-        display: block;
-    }
-
-    .middle-bar {
-        width: 3px;
-        height: 4px;
-        top: 0px;
-        left: 90px;
-        background: black;
-        position: absolute;
-    }
-
     &:before {
         width: calc(100% - 12px);
         height: calc(100% - 12px);
@@ -48,7 +18,7 @@
         content: '';
         left: 6px;
         border-radius: 50px;
-        background: #f8f8f8;
+        background: #080808;
         z-index: 1;
     }
 
@@ -60,138 +30,150 @@
         content: '';
         left: 8px;
         border-radius: 48px;
-        box-shadow:inset 0 0 3px 0 rgba(0, 0, 0, 0.1),
-        inset 0 0 6px 3px #FFFFFF;
-        z-index: 2;
-    }
-
-    .home {
-        border-radius: 100%;
-        width: 68px;
-        height: 68px;
-        position: absolute;
-        left: 50%;
-        margin-left: -34px;
-        bottom: 22px;
-        z-index: 3;
-        background: rgb(8, 8, 8);
-        background: linear-gradient(135deg, rgba(8, 8, 8, 1) 0%,rgba(70, 70, 70, 1) 50%,rgba(8, 8, 8, 1) 100%);
-
-        &:before {
-            background: #080808;
-            position: absolute;
-            content: '';
-            border-radius: 100%;
-            width: calc(100% - 8px);
-            height: calc(100% - 8px);
-            top: 4px;
-            left: 4px;
-        }
-    }
-
-    .top-bar {
-        height: 14px;
-        background: #212121;
-        position: absolute;
-        top: 68px;
-        left: 0;
-    }
-
-    .bottom-bar {
-        height: 14px;
-        background: #212121;
-        position: absolute;
-        bottom: 68px;
-        left: 0;
-    }
-
-    .sleep {
-        position: absolute;
-        top: 190px;
-        right: -4px;
-        width: 4px;
-        height: 66px;
-        border-radius: 0px 2px 2px 0px;
-        background: #464646;
-    }
-
-    .volume {
-        position: absolute;
-        left: -4px;
-        top: 188px;
-        z-index: 0;
-        height: 66px;
-        width: 4px;
-        border-radius: 2px 0px 0px 2px;
-        background: #464646;
-
-        &:before {
-            position: absolute;
-            left: 2px;
-            top: -78px;
-            height: 40px;
-            width: 2px;
-            border-radius: 2px 0px 0px 2px;
-            background: inherit;
-            content: '';
-            display: block;
-        }
-
-        &:after {
-            position: absolute;
-            left: 0px;
-            top: 82px;
-            height: 66px;
-            width: 4px;
-            border-radius: 2px 0px 0px 2px;
-            background: inherit;
-            content: '';
-            display: block;
-        }
-    }
-
-    .camera {
-        background: #080808;
-        width: 12px;
-        height: 12px;
-        position: absolute;
-        top: 24px;
-        left: 50%;
-        margin-left: -6px;
-        border-radius: 100%;
-        z-index: 3;
-    }
-
-    .sensor {
-        background: #3c3d3d;
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 49px;
-        left: 134px;
-        z-index: 3;
-        border-radius: 100%;
-    }
-
-    .speaker {
-        background: #292728;
-        width: 70px;
-        height: 6px;
-        position: absolute;
-        top: 54px;
-        left: 50%;
-        margin-left: -35px;
-        border-radius: 6px;
-        z-index: 3;
-    }
-
-    &:before {
-        background: #080808;
-    }
-
-    &:after {
         box-shadow:
             inset 0 0 3px 0 rgba(0, 0, 0, 0.1),
             inset 0 0 6px 3px #212121;
+        z-index: 2;
     }
+}
+
+#phone-screen {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    z-index: 3;
+    background: white;
+    overflow: hidden;
+    display: block;
+    border-radius: 1px;
+    //box-shadow: 0 0 20px #fff;
+    background: #222;
+}
+
+#phone-top-bar,
+#phone-bottom-bar {
+    height: 3px;
+    background: black;
+    width: 100%;
+    display: block;
+}
+
+#phone-home {
+    border-radius: 100%;
+    width: 68px;
+    height: 68px;
+    position: absolute;
+    left: 50%;
+    margin-left: -34px;
+    bottom: 22px;
+    z-index: 3;
+    background: rgb(8, 8, 8);
+    background: linear-gradient(135deg, rgba(8, 8, 8, 1) 0%,rgba(70, 70, 70, 1) 50%,rgba(8, 8, 8, 1) 100%);
+
+    &:before {
+        background: #080808;
+        position: absolute;
+        content: '';
+        border-radius: 100%;
+        width: calc(100% - 8px);
+        height: calc(100% - 8px);
+        top: 4px;
+        left: 4px;
+    }
+}
+
+#phone-top-bar {
+    height: 14px;
+    background: #212121;
+    position: absolute;
+    top: 68px;
+    left: 0;
+}
+
+#phone-bottom-bar {
+    height: 14px;
+    background: #212121;
+    position: absolute;
+    bottom: 68px;
+    left: 0;
+}
+
+#phone-sleep {
+    position: absolute;
+    top: 190px;
+    right: -4px;
+    width: 4px;
+    height: 66px;
+    border-radius: 0px 2px 2px 0px;
+    background: #464646;
+}
+
+#phone-volume {
+    position: absolute;
+    left: -4px;
+    top: 188px;
+    z-index: 0;
+    height: 66px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: #464646;
+
+    &:before {
+        position: absolute;
+        left: 2px;
+        top: -78px;
+        height: 40px;
+        width: 2px;
+        border-radius: 2px 0px 0px 2px;
+        background: inherit;
+        content: '';
+        display: block;
+    }
+
+    &:after {
+        position: absolute;
+        left: 0px;
+        top: 82px;
+        height: 66px;
+        width: 4px;
+        border-radius: 2px 0px 0px 2px;
+        background: inherit;
+        content: '';
+        display: block;
+    }
+}
+
+#phone-camera {
+    background: #080808;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    margin-left: -6px;
+    border-radius: 100%;
+    z-index: 3;
+}
+
+#phone-sensor {
+    background: #3c3d3d;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 49px;
+    left: 134px;
+    z-index: 3;
+    border-radius: 100%;
+}
+
+#phone-speaker {
+    background: #292728;
+    width: 70px;
+    height: 6px;
+    position: absolute;
+    top: 54px;
+    left: 50%;
+    margin-left: -35px;
+    border-radius: 6px;
+    z-index: 3;
 }

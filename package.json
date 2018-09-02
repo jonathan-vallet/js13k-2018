@@ -22,5 +22,8 @@
     "gulp-inline-source": "^3.2.0",
     "gulp-uglify-es": "^0.1.3",
     "gulp-zip": "^4.0.0"
+  },
+  "devDependencies": {
+    "gulp-replace": "^1.0.0"
   }
 }

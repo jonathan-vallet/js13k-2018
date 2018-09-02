@@ -8,6 +8,9 @@ var mapOffsetY = -50;
 var isSprinting = false;
 var playerOffsetX = 0;
 var playerOffsetY = 0;
+var playerRotation = 0; // Player oriention to draw in correc direction while moving and keep rotation after
+var playerCanvas; // canvas to draw player image
+var playerMovingTime = 0;
 var startTime = +new Date();
 const MOVE_SPEED = 1;
 const SPRINT_SPEED = 2.5;

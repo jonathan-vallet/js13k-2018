@@ -124,17 +124,7 @@ function draw(){
 // gameContext.drawImage(foreground,0,0);
     gameContext.globalCompositeOperation = "source-over";
     
-    // Draw dots / Player
-    gameContext.fillStyle = '#F00';
-    gameContext.beginPath();
-    gameContext.arc(canvasCenterX + playerOffsetX, canvasCenterY + playerOffsetY, 10, 0, 2*Math.PI, false);
-    gameContext.fill();
-
-    // Draws signal on floor
-    /*gameContext.fillStyle = '#4c4';
-    gameContext.beginPath();
-    gameContext.arc(canvasCenterX + mapOffsetX + signalPosition.x, canvasCenterY + mapOffsetY + signalPosition.y, 20, 0, 2*Math.PI, false);
-    gameContext.fill();*/
+    drawPlayer();
     
     updateSignalPower();
     generateLightFilter();
@@ -246,5 +236,11 @@ document.onkeyup = function(e){
 window.addEventListener('resize', function(k) {
     checkSize();
 });
-checkSize();
-initKeyboard();
+
+function initGame() {
+    checkSize();
+    initKeyboard();
+    initPlayer();
+}
+
+initGame();
