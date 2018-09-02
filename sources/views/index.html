@@ -2,28 +2,27 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>Survival</title>
     <link type="text/css" rel="stylesheet" href="css/style.css" inline />
 </head> 
 <body>
     <div id="wrapper">
         <canvas id="game" width="1000" height="1000"></canvas>
-        <div class="phone">
-            <div class="top-bar"></div>
-            <div class="sleep"></div>
-            <div class="volume"></div>
-            <div class="camera"></div>
-            <div class="sensor"></div>
-            <div class="speaker"></div>
-            <div class="screen">
+        <div id="phone">
+            <div id="phone-top-bar"></div>
+            <div id="phone-sleep"></div>
+            <div id="phone-volume"></div>
+            <div id="phone-camera"></div>
+            <div id="phone-sensor"></div>
+            <div id="phone-speaker"></div>
+            <div id="phone-screen">
                 <div class="phone-app phone-camera">
                     <p class="phone-camera-icon"></p>
                     <p class="phone-progress-bar"></p>
                 </div>
-                <div class="phone-app phone-light">
-                    <p class="phone-light-icon"></p>
+                <div id="phone-light" class="phone-app">
+                    <p id="phone-light-icon"></p>
                 </div>
-                <div class="phone-app phone-sound">
+                <div id="phone-sound" class="phone-app">
                     <p class="phone-sound-icon">♫</p>
                 </div>
                 <div class="phone-app phone-health">
@@ -35,11 +34,28 @@
                     <span>E</span>
                     <span>S</span>
                    <span>W</span>
-                   <div id="pointer"></div>
+                   <div id="compass-pointer-wrapper">
+                       <p id="compass-pointer"></p>
+                   </div>
+                </div>
+                <div id="signal-bar" data-level="1">
+                    <p id="signal-bar-1"></p>
+                    <p id="signal-bar-2"></p>
+                    <p id="signal-bar-3"></p>
+                    <p id="signal-bar-4"></p>
+                    <p id="signal-bar-5"></p>
+                </div>
+                <div id="iphone-keyboard-wrapper">
+                    <p id="countdown"></p>
+                    <ul id="iphone-keyboard">
+                    </ul>
                 </div>
             </div>
-            <div class="home"></div>
-            <div class="bottom-bar"></div>
+            <div id="phone-home"></div>
+            <div id="phone-bottom-bar"></div>
+        </div>
+        <div id="text-overlay">
+            <p id="text"></p>
         </div>
     </div>
     <script src="scripts/game.js" inline></script>

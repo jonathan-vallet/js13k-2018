@@ -1,5 +1,6 @@
 // Taken from http://cssdeck.com/labs/building-a-css3-compass
 #compass {
+    display: none;
     position: absolute;
     bottom: 87.5px;
     left: 87.5px;
@@ -74,18 +75,27 @@
 /* Next up, is the pointer */
 
 /* A bit of CSS3 animations on the pointer would be nice */
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes compass-rotate {
+    from { transform: rotate(-15deg); }
+    to { transform: rotate(15deg); }
 }
 
-#pointer {
+#compass-pointer-wrapper {
     position: relative;
     width: 60px;
     height: 30px;
     left: calc(50% - 30px);
     top: calc(50% - 15px);
-    animation: rotate 5s cubic-bezier(1,.2,.5,1) infinite alternate;
+    transform: rotate(-104deg);
+}
+
+#compass-pointer {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    left: calc(50% - 30px);
+    top: calc(50% - 15px);
+    animation: compass-rotate 4s cubic-bezier(0.7, 0, 0.3, 1) infinite alternate;
     &::before {
         content: '';
         position: absolute;

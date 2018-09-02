@@ -1,0 +1,70 @@
+$signal-strength-bar-height: 100px;
+$signal-strength-bar-width: 150px;
+
+#signal-bar {
+    position: absolute;
+    bottom: 150px;
+    left: calc(50% - #{$signal-strength-bar-width / 2});
+    height: $signal-strength-bar-height;
+    width: $signal-strength-bar-width;
+     p {
+        width: 16%;
+        margin: 0 2%;
+        display: inline-block;
+        background-color: #fafafa;
+        border: 1px solid #f3f3f3;
+    }
+    &-1 {
+        height: 20%;
+    }
+    &-2 {
+        height: 40%;
+    }
+    &-3 {
+        height: 60%;
+    }
+    &-4 {
+        height: 80%;
+    }
+    &-5 {
+        height: 99%;
+    }
+    &[data-level="1"] {
+        p:first-child {
+            background-color: #e74c3c;
+            border: thin solid darken(#e74c3c, 20%);
+        }
+    }
+    &[data-level="2"] {
+        p:nth-child(-n + 2) {
+            background-color: #e74c3c;
+            border: thin solid darken(#e74c3c, 20%);
+        }
+    }
+    &[data-level="3"] {
+        p:nth-child(-n + 3) {
+            background-color: #f1c40f;
+            border: thin solid darken(#f1c40f, 7%);
+        }
+    }
+    &[data-level="4"] {
+        p:nth-child(-n + 4) {
+            background-color: #f1c40f;
+            border: thin solid darken(#f1c40f, 7%);
+        }
+    }
+    &[data-level="5"] {
+        p {
+            background-color: #16a085;
+            border: thin solid darken(#16a085, 7%);
+        }
+    }
+}
+.good .bar {
+}
+.bad .bar {
+}
+.ok .bar {
+  background-color: #f1c40f;
+  border: thin solid darken(#f1c40f, 7%);
+}

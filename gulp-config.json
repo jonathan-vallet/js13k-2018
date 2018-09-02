@@ -28,11 +28,6 @@
             "destination": "",
             "minifyHTML": true
         },
-        "images": {
-            "source": ["images/**/*"],
-            "destination": "images",
-            "minify": true
-        },
         "zip": {
             "source": ["*.html"],
             "destination": "./dist",

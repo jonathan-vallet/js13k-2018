@@ -1,0 +1,49 @@
+#iphone-keyboard-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+#iphone-keyboard {
+    border-top: 1px solid #3A3D42;
+    background-image: linear-gradient(to bottom, #9098A3, #454f5d);
+    padding: 2% 0 1%;
+    li {
+        text-align: center;
+        list-style: none;
+        padding: 1% 2%;
+    }
+    button {
+        display: inline-block;
+        width: 8.5%;
+        margin: 0 .25%;
+        padding: 3% 0;
+        color: black;
+        font-weight: bold;
+        font-size: 24px;
+        font-family: sans-serif;
+        
+        color: #3A3D42;
+        text-decoration: none;
+        text-align: center;
+        text-shadow: 0 1px 1px white;
+        border: 0;
+        border-top: 1px solid rgba(255,255,255,.45);
+        background: #ECEDEF;
+        background-image: linear-gradient(to bottom, #f8f8f9, #dddfe1);
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.7), 0 1px 0 rgba(0,0,0,.3);
+        &:active,
+        &.active {
+            background-image: linear-gradient(to bottom, #E2E3E4, #AAADB4);   
+        }
+    }
+    .space {
+        margin-top: 2%;
+        width: 65%;
+        padding: 2% 0;
+    }
+}

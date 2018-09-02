@@ -1,0 +1,30 @@
+#text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1000px;
+    height: 1000px;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+}
+
+#text {
+    padding-top: 300px;
+    font-family: sans-serif;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 3px;
+    color: $white;
+    span {
+        display: inline-block;
+        vertical-align: baseline;
+        transition: all 0.4s ease;
+        &.current {
+            border-bottom: 2px solid yellow;
+        }
+        &.checked {
+            opacity: 0;
+            transform: translateY(-100px);
+        }
+    }
+}
