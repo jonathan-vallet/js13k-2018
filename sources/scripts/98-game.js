@@ -56,9 +56,11 @@ function draw() {
             lightOffsetY = Math.min(0, lightOffsetY + lightMovement);
         }
     }
+
     
     drawShadows();
     drawMap();
+    
 
     // Masked Foreground
 // gameContext.globalCompositeOperation = "source-in";
@@ -66,7 +68,9 @@ function draw() {
     gameContext.globalCompositeOperation = "source-over";
     
     drawPlayer();
+
     generateLightFilter();
+    drawShadow();
     if(gamePhase === 1) {
         updateSignalPower();
     } else if(gamePhase === 3) {
@@ -97,8 +101,22 @@ window.onload = function(){
     drawLoop();
 };
 
+function restartGame() {
+    isTorchLit = false;
+    mapOffsetX = -50;
+    mapOffsetY = -50;
+    isSprinting = false;
+    playerOffsetX = 0;
+    playerOffsetY = 0;
+    playerRotation = 0; // Player oriention to draw in correc direction while moving and keep rotation after
+    shadowList = [
+        {x: 80, y: 280},
+        {x: 450, y: 30}
+    ];
+}
 
 function initGame() {
+    restartGame();
     checkSize();
     initMap();
     initKeyboard();
@@ -106,7 +124,10 @@ function initGame() {
 }
 
 function endLevel() {
-    console.log('yeah!!');
-    initGame();
+    restartGame();
+}
+
+function gameOver() {
+    restartGame();
 }
 initGame();

@@ -6,12 +6,16 @@ var signal = $('signal-bar');
 var compass = $('compass-pointer-wrapper');
 
 var gameContext = gameCanvas.getContext('2d');
-var mapOffsetX = -50;
-var mapOffsetY = -50;
-var isSprinting = false;
-var playerOffsetX = 0;
-var playerOffsetY = 0;
-var playerRotation = 0; // Player oriention to draw in correc direction while moving and keep rotation after
+
+// Global level vars
+var shadowList;
+var mapOffsetX;
+var mapOffsetY;
+var isSprinting;
+var playerOffsetX;
+var playerOffsetY;
+var playerRotation; // Player oriention to draw in correc direction while moving and keep rotation after
+
 var playerCanvas; // canvas to draw player image
 var playerMovingTime = 0;
 var startTime = +new Date();
@@ -44,8 +48,11 @@ var yDirection = 0;
 
 // Gameplay (level design var to ajust)
 var countdownTime = '15000';
-const MOVE_SPEED = 1;
-const SPRINT_SPEED = 2.5;
+const MOVE_SPEED = 1.5;
+const SPRINT_SPEED = 4;
+const SHADOW_SPEED = 2.2;
+const LIGHT_RADIUS = 100;
+const LIGHT_LIT_RADIUS = 180;
 
 
 

@@ -30,6 +30,13 @@ document.onkeydown = function(e){
     }
 };
 
+
+document.onkeypress = function(e){
+    if(e.keyCode === 102) {
+        isTorchLit = !isTorchLit;
+    }
+}
+
 document.onkeyup = function(e){
     var code = e.keyCode;
     if (code === 39) {

@@ -10,10 +10,10 @@ function generateLightFilter() {
     // Gets light radius. Decrease over time, and has a small variation too to simulate firelight effect
     
     if(isTorchLit) {
-        var lightRadius = 150;
+        var lightRadius = LIGHT_LIT_RADIUS;
         var lightSplash = 0.8;
     } else {
-        var lightRadius = 100;
+        var lightRadius = LIGHT_RADIUS;
         var lightSplash = 0.6;
     }
     
