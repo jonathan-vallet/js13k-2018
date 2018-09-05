@@ -22,6 +22,15 @@ body {
             display: block;   
         }
     }
+    &.pause {
+        #text-overlay {
+            display: block;   
+        }
+        #text {
+            font-size: 26px;
+            line-height: 1.3;   
+        }
+    }
     &.phase-compass {
         #compass {
             display: block;   
@@ -30,6 +39,10 @@ body {
             display: none;
         }
     }
+}
+
+b {
+    color: yellow;    
 }
 
 #wrapper {

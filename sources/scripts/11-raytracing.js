@@ -128,17 +128,17 @@ function getSightPolygon(sightX, sightY){
 
 function drawShadows() {
     // Sight Polygons
-    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
+    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 8, playerOffsetY - mapOffsetY + lightOffsetY / 8)];
     
     if(isTorchLit) {
         var fuzzyRadius = 10;
     } else {
-        var fuzzyRadius = 4;
+        var fuzzyRadius = 7;
     }
     for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
         var dx = Math.cos(angle)*fuzzyRadius;
         var dy = Math.sin(angle)*fuzzyRadius;
-        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
+        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 8 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 8 + dy));
     };
 
     // DRAW AS A GIANT POLYGON

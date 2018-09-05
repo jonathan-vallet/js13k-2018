@@ -22,7 +22,7 @@ function drawShadow() {
             gameContext.fillStyle = "#600";
             gameContext.arc(canvasCenterX + mapOffsetX + shadow.x, canvasCenterY + mapOffsetY + shadow.y, 8, 0, 2 * Math.PI, false);
             gameContext.fill();
-        } 
+        }
         if(shadow.v){
             gameContext.beginPath();
             gameContext.fillStyle = "#fff";

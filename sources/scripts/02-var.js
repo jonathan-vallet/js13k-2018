@@ -9,6 +9,7 @@ var gameContext = gameCanvas.getContext('2d');
 
 // Global level vars
 var shadowList;
+var isGamePaused;
 var mapOffsetX;
 var mapOffsetY;
 var isSprinting;

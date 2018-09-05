@@ -121,6 +121,24 @@ function initGame() {
     initMap();
     initKeyboard();
     initPlayer();
+    showIntro();
+}
+
+function showIntro() {
+    document.body.classList.add('pause');
+    isGamePaused = true;
+    $('text').innerHTML = `Ok... An apocalypse juste happened.<br>
+        I'm here, alone, with my phone, offline.<br>
+        I have to find network using my <b>phone signal</b> to send a message.<br>
+        <br>
+        Nothing broken, I can <b>move</b> (arrows, ZQSD, WASD)<br>
+        I can use  my <b>Flashlight</b> (F, or click on the app)<br><br>
+        I've seen some shadows moving, they seems to be attracted by light, I should avoid them, or use my <b>camera flash</b> in case of emergency`;
+}
+
+function stopPause() {
+    document.body.classList.remove('pause');
+    isGamePaused = false;
 }
 
 function endLevel() {
