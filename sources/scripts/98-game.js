@@ -102,6 +102,7 @@ window.onload = function(){
 };
 
 function restartGame() {
+    gamePhase = 1;
     isTorchLit = false;
     mapOffsetX = -50;
     mapOffsetY = -50;
@@ -127,18 +128,32 @@ function initGame() {
 function showIntro() {
     document.body.classList.add('pause');
     isGamePaused = true;
-    $('text').innerHTML = `Ok... An apocalypse juste happened.<br>
+    var text = `Ok...<br>
         I'm here, alone, with my phone, offline.<br>
-        I have to find network using my <b>phone signal</b> to send a message.<br>
+        I have to find network using my <b>phone signal</b><br>
         <br>
         Nothing broken, I can <b>move</b> (arrows, ZQSD, WASD)<br>
         I can use  my <b>Flashlight</b> (F, or click on the app)<br><br>
         I've seen some shadows moving, they seems to be attracted by light, I should avoid them, or use my <b>camera flash</b> in case of emergency`;
+    if(gamePhase === 2) {
+        text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear! (use keyboard to rewrite text)`;
+    }
+    if(gamePhase === 3) {
+        text = isMessageSent ? `I've send my message! When I'll have left that floor I'll be free!` : `Damn! Not enough signal to send my message.`;
+        text += `<br>I have to use my <b>compass</b> to find the exit, pointing in blue direction`;
+    }
+    $('text').innerHTML = text;
 }
 
 function stopPause() {
     document.body.classList.remove('pause');
     isGamePaused = false;
+    if(gamePhase === 2) {
+        startTextPhase();
+    }
+    if(gamePhase === 3) {
+        startCompassPhase();
+    }
 }
 
 function endLevel() {

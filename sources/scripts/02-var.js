@@ -35,6 +35,8 @@ var signalPosition = {x: 500, y: 250}
 
 // Game state
 var isTorchLit = false;
+var isMessageSent = false;
+var countdownInterval;
 var goLeft = false;
 var goRight = false;
 var goTop = false;
@@ -45,7 +47,6 @@ var now = +new Date();
 var frameDuration = 0;
 var xDirection = 0;
 var yDirection = 0;
-
 
 // Gameplay (level design var to ajust)
 var countdownTime = '15000';

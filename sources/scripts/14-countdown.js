@@ -1,6 +1,6 @@
 function startCountdown() {
     var startTime = +new Date();
-    var countdownInterval = setInterval(function() {
+    countdownInterval = setInterval(function() {
         var remainingTime = Math.max(0, countdownTime - now + startTime);
         var seconds = Math.floor(remainingTime / 1000 % 100);
         var milliseconds = Math.floor(remainingTime / 10 % 100);
@@ -10,7 +10,7 @@ function startCountdown() {
      // If the count down is over, write some text 
         if (remainingTime <= 0) {
             clearInterval(countdownInterval);
-            startCompassPhase();
+            changePhase();
          }
     }, 10);
 }

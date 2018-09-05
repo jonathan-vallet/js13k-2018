@@ -129,7 +129,7 @@ function getSightPolygon(sightX, sightY){
 function drawShadows() {
     // Sight Polygons
     var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 8, playerOffsetY - mapOffsetY + lightOffsetY / 8)];
-    
+
     if(isTorchLit) {
         var fuzzyRadius = 10;
     } else {

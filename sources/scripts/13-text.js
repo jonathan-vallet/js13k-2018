@@ -16,8 +16,13 @@ function checkText(letter) {
         if(currentLetter.nextElementSibling) {
             currentLetter.nextElementSibling.classList.add('current');
         } else {
-            ++currentTextIndex;
-            displayText();
+            if(++currentTextIndex < textList.length) {
+                displayText();
+            } else {
+                isMessageSent = true;
+                clearInterval(countdownInterval);
+                changePhase();
+            }
         }
     }
 }
