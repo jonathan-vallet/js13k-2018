@@ -1,4 +1,3 @@
-
 $('phone-light').onclick = () => {
     isTorchLit = !isTorchLit;
 };

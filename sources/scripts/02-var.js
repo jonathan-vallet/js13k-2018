@@ -49,8 +49,8 @@ var yDirection = 0;
 // Gameplay (level design var to ajust)
 var countdownTime = '15000';
 const MOVE_SPEED = 1.5;
-const SPRINT_SPEED = 4;
-const SHADOW_SPEED = 2.2;
+const SPRINT_SPEED = 3.5;
+const SHADOW_SPEED = 2;
 const LIGHT_RADIUS = 100;
 const LIGHT_LIT_RADIUS = 180;
 
