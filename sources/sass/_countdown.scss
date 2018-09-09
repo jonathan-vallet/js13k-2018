@@ -1,17 +1,17 @@
 #countdown {
     background: #000;
     color: white;
-    font-size: 40px;
-    padding: 10px 0;
+    font-size: 27px;
+    padding: 7px 0;
     margin-bottom: -1px;
     text-align: center;
     font-family: sans-serif;
     span {
         display: inline-block;
         vertical-align: middle;
-        margin: 0 10px;
-        width: 62px;
+        margin: 0 7px;
+        width: 43px;
         text-align: right;
-        font-size: 60px;
+        font-size: 42px;
     }
 }

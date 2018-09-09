@@ -18,6 +18,6 @@ function updateSignalPower() {
     if(currentSignalPower === power) {
         return;
     }
-    signal.setAttribute('data-level', power);
+    $signal.setAttribute('data-level', power);
     currentSignalPower = power;
 }

@@ -18,6 +18,22 @@ function drawPlayer() {
     }
     var shoulderRotation = Math.sin(Math.floor(playerMovingTime / (isSprinting ? 50 : 150))) * 5;
 
+    if(isSprinting) {
+        sprintRemaining = Math.max(0, sprintRemaining - frameDuration / SPRINT_DURATION);
+        if(sprintRemaining <= 0) {
+            $sprintProgress.classList.add('off');
+            isSprinting = false;
+            isSprintAvailable = false;
+        }
+    } else {
+        sprintRemaining = Math.min(100, sprintRemaining + frameDuration / SPRINT_REGEN_DURATION);
+        if(!isSprintAvailable && sprintRemaining > SPRINT_PERCENT_REQUIRED) {
+            $sprintProgress.classList.remove('off');
+            isSprintAvailable = true;
+        }
+    }
+    $sprintProgress.value = sprintRemaining;
+    
     gameContext.save();
     gameContext.translate(x, y);
     gameContext.rotate(playerRotation * Math.PI / 180);

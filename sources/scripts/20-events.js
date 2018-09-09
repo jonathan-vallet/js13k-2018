@@ -2,6 +2,20 @@ $('phone-light').onclick = () => {
     isTorchLit = !isTorchLit;
 };
 
+$('phone-camera').onclick = () => {
+    flash();
+};
+
+function flash() {
+    if(flashingDelay === 100) {
+        isFlashing = true;
+        flashingDuration = 0;
+        $flashProgress.classList.add('off');
+        $flashProgress.value = 0;
+        flashingDelay = 0;
+    }
+}
+
 document.onkeydown = function(e){
     var code = e.keyCode;
     var key = e.key.toLowerCase();
@@ -12,7 +26,7 @@ document.onkeydown = function(e){
         }
         return;
     }
-    
+
     if(gamePhase === 2) {
         checkText(e.key);
         var letter = $('iphone-keyboard').querySelector('button[data-char="' + e.key.toUpperCase() + '"')
@@ -30,8 +44,8 @@ document.onkeydown = function(e){
             goBottom = 1;
         }
         if(xDirection !== 0 || yDirection !== 0) {
-            gameCanvas.classList.add(e.shiftKey ? 'sprinting' : 'moving');
-            if(e.shiftKey) {
+            $gameCanvas.classList.add(e.shiftKey ? 'sprinting' : 'moving');
+            if(e.shiftKey && (isSprintAvailable || sprintRemaining > SPRINT_PERCENT_REQUIRED)) {
                 isSprinting = true;
             }
         }
@@ -40,9 +54,12 @@ document.onkeydown = function(e){
 
 
 document.onkeypress = function(e){
-    if(gamePhase !== 2) {
+    if(gamePhase !== 2 && !isGamePaused) {
         if(e.key.toLowerCase() === 'f') {
             isTorchLit = !isTorchLit;
+        }
+        if(e.keyCode === 32) {
+            flash();
         }
     }
 }
@@ -64,7 +81,7 @@ document.onkeyup = function(e){
     if(!e.shiftKey) {
         isSprinting = false;
     }
-    gameCanvas.classList.remove('moving', 'sprinting');
+    $gameCanvas.classList.remove('moving', 'sprinting');
 
     if(gamePhase === 2) {
         var letter = $('iphone-keyboard').querySelector('button[data-char="' + e.key.toUpperCase() + '"')
