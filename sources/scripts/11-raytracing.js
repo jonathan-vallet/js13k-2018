@@ -39,6 +39,7 @@ function getIntersection(ray, segment) {
     };
 }
 
+
 const CHECK_LIGHT_RADIUS = 700;
 function getSightPolygon(sightX, sightY){
     var pointList =[];
@@ -90,6 +91,7 @@ function getSightPolygon(sightX, sightY){
 
         roomList.forEach(room => {
             for(var index = 0; index < room.length - 1; ++index){
+                ++loopNumber;
                 segment = [room[index], room[index + 1]];
                 // Checks if segment is in bounds
                 if(
@@ -116,7 +118,6 @@ function getSightPolygon(sightX, sightY){
         // Add to list of intersects
         intersects.push(closestIntersect);
     }
-
     // Sort intersects by angle
     intersects = intersects.sort(function(a,b){
         return a.angle-b.angle;
@@ -126,26 +127,30 @@ function getSightPolygon(sightX, sightY){
     return intersects;
 }
 
+var loopNumber = 0;
 function drawShadows() {
+    loopNumber = 0;
     // Sight Polygons
-    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4, playerOffsetY - mapOffsetY + lightOffsetY / 4)];
-    
+    var polygons = [getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 8, playerOffsetY - mapOffsetY + lightOffsetY / 8)];
+
     if(isTorchLit) {
         var fuzzyRadius = 10;
     } else {
-        var fuzzyRadius = 4;
+        var fuzzyRadius = 7;
     }
     for(var angle=0;angle < Math.PI*2; angle += (Math.PI*2) / 10 ){
         var dx = Math.cos(angle)*fuzzyRadius;
         var dy = Math.sin(angle)*fuzzyRadius;
-        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 4 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 4 + dy));
+        polygons.push(getSightPolygon(playerOffsetX - mapOffsetX + lightOffsetX / 8 + dx, playerOffsetY - mapOffsetY + lightOffsetY / 8 + dy));
     };
 
     // DRAW AS A GIANT POLYGON
     for(var i=1;i < polygons.length; ++i){
-        drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
+       drawPolygon(polygons[i],gameContext,"rgba(255,255,255,0.08)");
     }
     drawPolygon(polygons[0],gameContext, FLOOR_COLOR);
+
+//    console.log(loopNumber);
 }
 
 function drawPolygon(polygon,gameContext,fillStyle){

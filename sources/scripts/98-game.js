@@ -17,9 +17,9 @@ function draw() {
     }
     
     // Clear canvas
-    gameContext.clearRect(0,0,gameCanvas.width,gameCanvas.height);
+    gameContext.clearRect(0,0,$gameCanvas.width,$gameCanvas.height);
     gameContext.fillStyle = '#000';
-    gameContext.fillRect(0,0,gameCanvas.width,gameCanvas.height);
+    gameContext.fillRect(0,0,$gameCanvas.width,$gameCanvas.height);
     
     // Sets new player position
     var [xMovement, yMovement] = checkCollision();
@@ -56,17 +56,34 @@ function draw() {
             lightOffsetY = Math.min(0, lightOffsetY + lightMovement);
         }
     }
+
+    if(flashingDelay < 100) {
+        flashingDelay = Math.min(100, flashingDelay + frameDuration / FLASHING_REGEN_TIME);
+        $flashProgress.value = flashingDelay;
+        if(flashingDelay === 100) {
+            $flashProgress.classList.remove('off');
+        }
+    }
     
     drawShadows();
     drawMap();
-
+    
     // Masked Foreground
 // gameContext.globalCompositeOperation = "source-in";
 // gameContext.drawImage(foreground,0,0);
     gameContext.globalCompositeOperation = "source-over";
     
     drawPlayer();
-    generateLightFilter();
+
+    if(isFlashing) {
+        flashingDuration += frameDuration;
+        if(flashingDuration > FLASH_DURATION) {
+            isFlashing = false;
+        }
+    } else {
+        generateLightFilter();
+    }
+    drawShadow();
     if(gamePhase === 1) {
         updateSignalPower();
     } else if(gamePhase === 3) {
@@ -97,16 +114,88 @@ window.onload = function(){
     drawLoop();
 };
 
+function restartGame() {
+    gamePhase = 1;
+    isTorchLit = false;
+    mapOffsetX = -50;
+    mapOffsetY = -50;
+    isSprinting = false;
+    playerOffsetX = 0;
+    playerOffsetY = 0;
+    playerRotation = 0; // Player oriention to draw in correc direction while moving and keep rotation after
+    lightRemaining = 100;
+    sprintRemaining = 100;
+    isSprintAvailable = true;
+    isFlashing = false;
+    flashingDuration = 0;
+    flashingDelay = 100;
+    shadowList = [
+        {x: 80, y: 280},
+        {x: 50, y: 700},
+        {x: 640, y: 690},
+        {x: 450, y: 30},
+        {x: 980, y: 520},
+        {x: 700, y: 850},
+        {x: 480, y: 980},
+        {x: 720, y: 450},
+        {x: 620, y: 140}
+    ];
+}
 
 function initGame() {
+    restartGame();
     checkSize();
     initMap();
     initKeyboard();
     initPlayer();
+    showIntro();
+}
+
+function showIntro() {
+    document.body.classList.add('pause');
+    isGamePaused = true;
+    var text = `Ok...<br>
+        I'm here, alone, with my phone, offline.<br>
+        I have to find network using my <b>phone signal</b><br>
+        <br>
+        Nothing broken, I can <b>move</b> (arrows, ZQSD, WASD), or <b>sprint</b> (shift, controlled by my health app)<br>
+        I can use  my <b>Flashlight</b> (F, or click on the app)<br><br>
+        I've seen some shadows moving, they seems to be attracted by light, I should avoid them, or use my <b>camera flash</b> in case of emergency`;
+    if(gamePhase === 2) {
+        text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear! (use keyboard to rewrite text)`;
+    }
+    if(gamePhase === 3) {
+        text = isMessageSent ? `I've send my message! When I'll have left that floor I'll be free!` : `Damn! Not enough signal to send my message.`;
+        text += `<br>I have to use my <b>compass</b> to find the exit, pointing in blue direction`;
+    }
+    if(gamePhase === 4) {
+        text = `Congratulations!<br> You are now free, and can go back online!<br><br>Thank you for playing!`;
+    }
+    $('text').innerHTML = text;
+}
+
+function stopPause() {
+    if(gamePhase !== 4) {
+        document.body.classList.remove('pause');
+        isGamePaused = false;
+    }
+    if(gamePhase === 2) {
+        startTextPhase();
+    }
+    if(gamePhase === 3) {
+        startCompassPhase();
+    }
 }
 
 function endLevel() {
-    console.log('yeah!!');
-    initGame();
+    if(isMessageSent) {
+        gamePhase = 4;
+        showIntro();
+    }
+    restartGame();
+}
+
+function gameOver() {
+    restartGame();
 }
 initGame();

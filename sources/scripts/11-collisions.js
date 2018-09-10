@@ -6,7 +6,7 @@ function checkCollision() {
     
     var x = canvasCenterX + playerOffsetX - 11;
     var y = canvasCenterY + playerOffsetY - 11;
-    
+
     // Gets color data of the zone where the image will be drawn
     var colorData = gameContext.getImageData(x + xMovement, y + yMovement, 22, 22).data;
 

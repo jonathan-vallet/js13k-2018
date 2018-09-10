@@ -1,25 +1,33 @@
-var $ = document.getElementById;
+var $ = function(id) { return document.getElementById( id ); };
 // Elements
-var gameWrapper = $('wrapper');
-var gameCanvas = $('game');
-var signal = $('signal-bar');
+var $gameWrapper = $('wrapper');
+var $gameCanvas = $('game');
+var $signal = $('signal-bar');
 var compass = $('compass-pointer-wrapper');
+var $lightProgress = $('phone-light').querySelector('progress');
+var $sprintProgress = $('phone-health').querySelector('progress');
+var $flashProgress = $('phone-camera').querySelector('progress');
 
-var gameContext = gameCanvas.getContext('2d');
-var mapOffsetX = -50;
-var mapOffsetY = -50;
-var isSprinting = false;
-var playerOffsetX = 0;
-var playerOffsetY = 0;
-var playerRotation = 0; // Player oriention to draw in correc direction while moving and keep rotation after
+var gameContext = $gameCanvas.getContext('2d');
+
+// Global level vars
+var shadowList;
+var isGamePaused;
+var mapOffsetX;
+var mapOffsetY;
+var isSprinting;
+var playerOffsetX;
+var playerOffsetY;
+var playerRotation; // Player oriention to draw in correc direction while moving and keep rotation after
+
 var playerCanvas; // canvas to draw player image
 var playerMovingTime = 0;
 var startTime = +new Date();
 const FLOOR_COLOR = '#eee';
 const WALL_COLOR = '#666';
 const PLAYER_BOX_OFFSET = 250;
-var canvasCenterX = gameCanvas.width/2;
-var canvasCenterY = gameCanvas.height/2;
+var canvasCenterX = $gameCanvas.width/2;
+var canvasCenterY = $gameCanvas.height/2;
 const CIRCLE_LIGHT_BRIGHTNESS = 0; // Brightness of the scene (opacity of none lightned part)
 
 // Game / Level data
@@ -30,6 +38,8 @@ var signalPosition = {x: 500, y: 250}
 
 // Game state
 var isTorchLit = false;
+var isMessageSent = false;
+var countdownInterval;
 var goLeft = false;
 var goRight = false;
 var goTop = false;
@@ -40,14 +50,28 @@ var now = +new Date();
 var frameDuration = 0;
 var xDirection = 0;
 var yDirection = 0;
-
+var lightRemaining;
+var sprintRemaining;
+var isSprintAvailable;
+var isFlashing;
+var flashingDuration;
+var flashingDelay;
 
 // Gameplay (level design var to ajust)
-var countdownTime = '15000';
-const MOVE_SPEED = 1;
-const SPRINT_SPEED = 2.5;
-
-
+const COUNTDOWN_TIME = 30000; // ms
+const MOVE_SPEED = 1.5;
+const SPRINT_SPEED = 3.5;
+const SHADOW_SPEED = 2;
+const LIGHT_RADIUS = 100;
+const LIGHT_LIT_RADIUS = 180;
+const LIGHT_DURATION = 60;
+const LIGHT_REGEN_DURATION = 40;
+const SPRINT_DURATION = 60;
+const SPRINT_REGEN_DURATION = 90;
+const SPRINT_PERCENT_REQUIRED = 45;
+const FLASHING_REGEN_TIME = 200;
+const FLASH_DURATION = 600; // ms
+const FLASH_LIT_RADIUS = 400;
 
 var textList = [
     "Hello from the other side",
@@ -56,15 +80,14 @@ var textList = [
     "I'll send an SOS to the world",
     "I hope that someone gets my...",
 
-    "I'm still standing yeah yeah yeah",
+    "Lorem ipsum dolor sit amet,",
 
     "Hello darkness, my old friend",
     "I've come to talk with you again",
 
-    "Lorem ipsum dolor sit amet,",
-
-    "Mind, use your power",
-    "Spirit, use your wings",
+    "I'm still standing yeah yeah yeah",
+//    "Mind, use your power",
+//    "Spirit, use your wings",
     "Freedom",
 ];
 

@@ -9,15 +9,20 @@ function displayText() {
 }
 
 function checkText(letter) {
-    var currentLetter = $('text .current');
+    var currentLetter = $('text').querySelector('.current');
     if(letter.toLowerCase() === currentLetter.getAttribute('data-val').toLowerCase()) {
         currentLetter.classList.remove('current');
         currentLetter.classList.add('checked');
         if(currentLetter.nextElementSibling) {
             currentLetter.nextElementSibling.classList.add('current');
         } else {
-            ++currentTextIndex;
-            displayText();
+            if(++currentTextIndex < textList.length) {
+                displayText();
+            } else {
+                isMessageSent = true;
+                clearInterval(countdownInterval);
+                changePhase();
+            }
         }
     }
 }

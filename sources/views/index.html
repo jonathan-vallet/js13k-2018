@@ -11,24 +11,25 @@
             <div id="phone-top-bar"></div>
             <div id="phone-sleep"></div>
             <div id="phone-volume"></div>
-            <div id="phone-camera"></div>
+            <div id="phone-flash"></div>
             <div id="phone-sensor"></div>
             <div id="phone-speaker"></div>
             <div id="phone-screen">
-                <div class="phone-app phone-camera">
-                    <p class="phone-camera-icon"></p>
-                    <p class="phone-progress-bar"></p>
+                <div class="phone-app" id="phone-health">
+                    <p class="phone-health-icon"></p>
+                    <progress min="0" max="100" value="100">
                 </div>
                 <div id="phone-light" class="phone-app">
                     <p id="phone-light-icon"></p>
+                    <progress min="0" max="100" value="100">
                 </div>
-                <div id="phone-sound" class="phone-app">
+                <div class="phone-app" id="phone-camera">
+                    <p id="phone-camera-icon"></p>
+                    <progress min="0" max="100" value="100">
+                </div>
+                <!-- div id="phone-sound" class="phone-app">
                     <p class="phone-sound-icon">♫</p>
-                </div>
-                <div class="phone-app phone-health">
-                    <p class="phone-health-icon"></p>
-                    <p class="phone-progress-bar"></p>
-                </div>
+                </div-->
                 <div id="compass">
                     <span>N</span>
                     <span>E</span>
@@ -55,7 +56,7 @@
             <div id="phone-bottom-bar"></div>
         </div>
         <div id="text-overlay">
-            <p id="text"></p>
+            <p id="text" class="text"></p>
         </div>
     </div>
     <script src="scripts/game.js" inline></script>

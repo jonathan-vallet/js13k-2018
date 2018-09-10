@@ -9,7 +9,7 @@ function checkSize() {
     var scaleY = (GAME_HEIGHT + 20) / wh;
     var gameScale = Math.min(1.2, 1 / Math.max(scaleX, scaleY));
 
-    gameWrapper.style.webkitTransform = gameWrapper.style.transform = 'scale(' + gameScale + ')';
+    $gameWrapper.style.webkitTransform = $gameWrapper.style.transform = 'scale(' + gameScale + ')';
 }
 
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, w, h, r) {

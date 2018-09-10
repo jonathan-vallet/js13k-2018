@@ -3,25 +3,31 @@
  */
 function generateLightFilter() {
     var canvas = document.createElement('canvas');
-    canvas.width = gameCanvas.width;
-    canvas.height = gameCanvas.height;
+    canvas.width = $gameCanvas.width;
+    canvas.height = $gameCanvas.height;
     var context = canvas.getContext('2d');
     
     // Gets light radius. Decrease over time, and has a small variation too to simulate firelight effect
     
     if(isTorchLit) {
-        var lightRadius = 150;
+        var lightRadius = LIGHT_LIT_RADIUS;
         var lightSplash = 0.8;
+        lightRemaining = Math.max(0, lightRemaining - frameDuration / LIGHT_DURATION);
+        if(lightRemaining <= 0) {
+            isTorchLit = false;
+        }
     } else {
-        var lightRadius = 100;
+        var lightRadius = LIGHT_RADIUS;
         var lightSplash = 0.6;
+        lightRemaining = Math.min(100, lightRemaining + frameDuration / LIGHT_REGEN_DURATION);
     }
+    $lightProgress.value = lightRemaining;
     
     var ligthBritghness = CIRCLE_LIGHT_BRIGHTNESS;
 
     // Fills a rect with opacity reduced of current brightness
     context.fillStyle = 'rgba(0, 0, 0, ' + (1 - ligthBritghness / 100) + ')';
-    context.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
+    context.fillRect(0, 0, $gameCanvas.width, $gameCanvas.height);
 
     // Creates a gradient circle
     var x = canvasCenterX + playerOffsetX;// + Player.width / 2;

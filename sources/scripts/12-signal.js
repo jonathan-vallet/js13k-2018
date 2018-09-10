@@ -4,7 +4,7 @@ function updateSignalPower() {
     var power;
     if(distance < 50) {
         power = 5;
-        startTextPhase();
+        changePhase();
     } else if(distance < 250) {
         power = 4;
     } else if(distance < 400) {
@@ -18,6 +18,6 @@ function updateSignalPower() {
     if(currentSignalPower === power) {
         return;
     }
-    signal.setAttribute('data-level', power);
+    $signal.setAttribute('data-level', power);
     currentSignalPower = power;
 }
