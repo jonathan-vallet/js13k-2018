@@ -114,7 +114,7 @@ window.onload = function(){
     drawLoop();
 };
 
-function restartGame() {
+function restartGame(isGameOver) {
     gamePhase = 1;
     isTorchLit = false;
     mapOffsetX = -50;
@@ -129,6 +129,8 @@ function restartGame() {
     isFlashing = false;
     flashingDuration = 0;
     flashingDelay = 100;
+    $flashProgress.value = flashingDelay;
+    $flashProgress.classList.remove('off');
     shadowList = [
         {x: 80, y: 280},
         {x: 50, y: 700},
@@ -140,6 +142,7 @@ function restartGame() {
         {x: 720, y: 450},
         {x: 620, y: 140}
     ];
+    showIntro(isGameOver);
 }
 
 function initGame() {
@@ -151,7 +154,7 @@ function initGame() {
     showIntro();
 }
 
-function showIntro() {
+function showIntro(isGameOver) {
     document.body.classList.add('pause');
     isGamePaused = true;
     var text = `Ok...<br>
@@ -163,6 +166,9 @@ I can use  my <b>Flashlight</b> <em>(F, or click on the app)</em><br><br>
 I have to find network with 5 bars using my <b>phone signal</b><br><br>
 I've seen some shadows moving, they seem to be attracted by light.<br>
 I should avoid them, or detect them with my <b>camera flash</b> <em>(spacebar, or click on the app)</em>`;
+    if(isGameOver) {
+        text = `That shadow put me back to my initial point. I have to find my way back!`;
+    }
     if(gamePhase === 2) {
         text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear!<br><em>(use keyboard to rewrite text)</em>`;
     }
@@ -198,6 +204,6 @@ function endLevel() {
 }
 
 function gameOver() {
-    restartGame();
+    restartGame(true);
 }
 initGame();
