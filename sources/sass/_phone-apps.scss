@@ -3,12 +3,28 @@
     display: inline-block;
     vertical-align: top;
     width: 27.3333%;
-    margin: 3%;
+    margin: 5% 3%;
     padding-top: 27.3333%;
     background: #ccc;   
-    border-radius: 5%;
+    border-radius: 15%;
+    b {
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+        right: 0;
+        font-size: 11px;
+        color: $white;  
+        text-align: center;
+        font-weight: normal;
+    }
+    &:not(#phone-health) {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
 }
-    
+
 .phone-health-icon {
     position: absolute;
     top: 20px;
@@ -120,4 +136,77 @@
     text-align: center;
     font-size: 50px;
     line-height: 66px;   
+}
+
+$gear-size: 18px;
+.phone-gear {
+    display: inline-block;
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    margin: $gear-size/5;
+    width: $gear-size;
+    height: $gear-size;
+    background: white;
+    border-radius: 50%;
+    border: $gear-size/3.5 solid gray;
+    box-sizing: border-box;
+    font-size: $gear-size;
+    z-index: 2;
+    &:before,
+    &:after {
+        content: '×';
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        font-family: "times new roman";
+        font-weight: bold;
+        font-size: 250%;
+        color: gray;
+    }
+    
+    &:after {
+        transform: translate(-50%,-50%) rotate(45deg);
+    }
+    + .phone-gear {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        transform: scale(1.5) rotate(13deg);
+    }
+}
+
+#phone-notes {
+    background-image: linear-gradient(to bottom, #fd2 0, #ec3 20px, #aaa 21px, #fff 21px, #fff 32px, #aaa 33px, #fff 34px, #fff 46px, #aaa 47px, #fff 48px, #fff 60px, #aaa 61px, #fff 62px);
+}
+
+#notes {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #000;
+    padding: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-style: italic;
+    background: #fd2;
+    z-index: 2;
+    transition: all 0.3s;
+    &:not(.visible) {
+        transform: translateY(100%);
+    }
+    &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        top: 45px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #999;
+        box-shadow: 0 60px 0 0 #999, 0 90px 0 0 #999, 0 120px 0 0 #999;
+    }
 }

@@ -1,5 +1,5 @@
 $signal-strength-bar-height: 85px;
-$signal-strength-bar-width: 150px;
+$signal-strength-bar-width: 120px;
 
 #signal-bar {
     position: absolute;
@@ -8,11 +8,11 @@ $signal-strength-bar-width: 150px;
     height: $signal-strength-bar-height;
     width: $signal-strength-bar-width;
      p {
-        width: 12%;
+        width: 16%;
         margin: 0 2%;
         display: inline-block;
-        background-color: #fafafa;
-        border: 1px solid #f3f3f3;
+        background-color: #fff;
+        border: 1px solid #eee;
     }
     &-1 {
         height: 20%;
@@ -31,32 +31,34 @@ $signal-strength-bar-width: 150px;
     }
     &[data-level="1"] {
         p:first-child {
-            background-color: #e74c3c;
-            border: thin solid darken(#e74c3c, 20%);
+            background-color: #e44;
+            border: thin solid darken(#e44, 20%);
+            animation: blink 2s;
         }
     }
     &[data-level="2"] {
+        animation: blink 2s infinite;
         p:nth-child(-n + 2) {
-            background-color: #e74c3c;
-            border: thin solid darken(#e74c3c, 20%);
+            background-color: #e44;
+            border: thin solid darken(#e44, 20%);
         }
     }
     &[data-level="3"] {
         p:nth-child(-n + 3) {
-            background-color: #f1c40f;
-            border: thin solid darken(#f1c40f, 7%);
+            background-color: #fc1;
+            border: thin solid darken(#fc1, 7%);
         }
     }
     &[data-level="4"] {
         p:nth-child(-n + 4) {
-            background-color: #f1c40f;
-            border: thin solid darken(#f1c40f, 7%);
+            background-color: #fc1;
+            border: thin solid darken(#fc1, 7%);
         }
     }
     &[data-level="5"] {
         p {
-            background-color: #16a085;
-            border: thin solid darken(#16a085, 7%);
+            background-color: #2a8;
+            border: thin solid darken(#2a8, 7%);
         }
     }
 }
@@ -65,6 +67,14 @@ $signal-strength-bar-width: 150px;
 .bad .bar {
 }
 .ok .bar {
-  background-color: #f1c40f;
-  border: thin solid darken(#f1c40f, 7%);
+  background-color: #fc1;
+  border: thin solid darken(#fc1, 7%);
+}
+
+
+@keyframes blink {
+    0% { opacity: 1; }
+    49% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
 }

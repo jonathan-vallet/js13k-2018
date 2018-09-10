@@ -1,9 +1,17 @@
 $('phone-light').onclick = () => {
-    isTorchLit = !isTorchLit;
+    if(!isGamePaused) {
+        isTorchLit = !isTorchLit;
+    }
 };
 
 $('phone-camera').onclick = () => {
-    flash();
+    if(!isGamePaused) {
+        flash();
+    }
+};
+
+$('phone-notes').onclick = () => {
+    $('notes').classList.toggle('visible');
 };
 
 function flash() {
