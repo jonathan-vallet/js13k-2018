@@ -126,6 +126,7 @@
 
 #phone-sound {
     background: #e86;
+    color: #000;
 }
 
 .phone-sound-icon {
@@ -208,5 +209,24 @@ $gear-size: 18px;
         height: 1px;
         background: #999;
         box-shadow: 0 60px 0 0 #999, 0 90px 0 0 #999, 0 120px 0 0 #999;
+    }
+}
+
+#settings,
+#music {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #000;
+    padding: 80px 20px;
+    font-size: 20px;
+    line-height: 1.5;
+    font-style: italic;
+    transition: all 0.3s;
+    background: #ccc;
+    z-index: 3;
+    &:not(.visible) {
+        transform: translateY(100%);
     }
 }
