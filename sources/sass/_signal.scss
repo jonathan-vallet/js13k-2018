@@ -30,10 +30,10 @@ $signal-strength-bar-width: 120px;
         height: 99%;
     }
     &[data-level="1"] {
+        animation: blink 2s infinite;
         p:first-child {
             background-color: #e44;
             border: thin solid darken(#e44, 20%);
-            animation: blink 2s;
         }
     }
     &[data-level="2"] {

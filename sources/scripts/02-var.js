@@ -56,7 +56,7 @@ var isSprintAvailable;
 var isFlashing;
 var flashingDuration;
 var flashingDelay;
-var level = 2;
+var level = 1;
 var isStairsNotified = false;
 
 // Gameplay (level design var to ajust)
