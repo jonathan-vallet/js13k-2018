@@ -56,7 +56,8 @@ var isSprintAvailable;
 var isFlashing;
 var flashingDuration;
 var flashingDelay;
-var level = 1;
+var level = 2;
+var isStairsNotified = false;
 
 // Gameplay (level design var to ajust)
 const COUNTDOWN_TIME = 30000; // ms
@@ -79,7 +80,7 @@ var textList = [
     "I must have called a thousand times",
 
     "I'll send an SOS to the world",
-    "I hope that someone gets my...",
+//    "I hope that someone gets my...",
 
     "Lorem ipsum dolor sit amet,",
 
@@ -89,7 +90,7 @@ var textList = [
     "I'm still standing yeah yeah yeah",
 //    "Mind, use your power",
 //    "Spirit, use your wings",
-    "Freedom",
+    "Freedom!",
 ];
 
 // Map

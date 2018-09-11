@@ -9,20 +9,19 @@ function drawShadow() {
             gameOver();
             return;
         }
-        if(lihgtDistance < activeDistance - 5) {
-            if(!isFlashing) {
+        if(lihgtDistance < activeDistance + 20) {
+            if(!isFlashing && lihgtDistance < activeDistance - 5 && gamePhase !== 2) {
                 if(!shadow.v) {
                     shadow.v = +new Date() + 1000;
                 }
-
                 if(now >= shadow.v) {
                     var angle = Math.atan2(mapOffsetY + shadow.y - playerOffsetY, mapOffsetX + shadow.x - playerOffsetX);
                     shadow.x -= SHADOW_SPEED * Math.cos(angle);
                     shadow.y -= SHADOW_SPEED * Math.sin(angle);
                 }
-            }
-            if(!shadow.s) { // s = shown (revealed by any light)
-                shadow.s = true
+                if(!shadow.s) { // s = shown (revealed by any light)
+                    shadow.s = true
+                }
             }
 
             gameContext.beginPath();
@@ -34,7 +33,6 @@ function drawShadow() {
             gameContext.moveTo(x - r, y);
             gameContext.bezierCurveTo(x - r, y - r + d, x + r + d, y - r - d, x + r, y);
             gameContext.bezierCurveTo(x + r, y + r -d, x - r, y + r, x - r, y);
-//            gameContext.arc(canvasCenterX + mapOffsetX + shadow.x, canvasCenterY + mapOffsetY + shadow.y, 8, 0, 2 * Math.PI, false);
             gameContext.fill();
         }
         if(shadow.s) {

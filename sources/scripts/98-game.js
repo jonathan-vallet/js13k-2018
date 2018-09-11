@@ -86,18 +86,21 @@ function draw() {
     drawShadow();
     if(gamePhase === 1) {
         updateSignalPower();
+        if(!isStairsNotified && isPlayerOnStairs()) {
+            isStairsNotified = true;
+            showIntro(2);
+        }
     } else if(gamePhase === 3) {
         setCompassAngle();
         if(isPlayerOnStairs()) {
             endLevel();
         }
-    }
-    
+    }    
 }
 
 // DRAW LOOP
 window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame;
-function drawLoop(){
+function drawLoop() {
     var previousFrameTime = now;
     now = new Date();
     frameDuration = now - previousFrameTime;
@@ -116,8 +119,13 @@ window.onload = function(){
 
 function restartGame(isGameOver) {
     isTorchLit = false;
-    mapOffsetX = -50;
-    mapOffsetY = -50;
+    if(level % 2 === 1) {
+        mapOffsetX = -50;
+        mapOffsetY = -50;
+    } else {
+        mapOffsetX = -50;
+        mapOffsetY = -950; 
+    }
     isSprinting = false;
     playerOffsetX = 0;
     playerOffsetY = 0;
@@ -128,6 +136,7 @@ function restartGame(isGameOver) {
     isFlashing = false;
     flashingDuration = 0;
     flashingDelay = 100;
+    isStairsNotified = false;
     $flashProgress.value = flashingDelay;
     $flashProgress.classList.remove('off');
     shadowList = [
@@ -142,7 +151,7 @@ function restartGame(isGameOver) {
         {x: 620, y: 140}
     ];
     if(isGameOver) {
-        showIntro(isGameOver);
+        showIntro(1);
     } else {
         gamePhase = 1;
     }
@@ -157,7 +166,7 @@ function initGame() {
     showIntro();
 }
 
-function showIntro(isGameOver) {
+function showIntro(status) {
     document.body.classList.add('pause');
     isGamePaused = true;
     var text = `Ok...<br>
@@ -169,18 +178,24 @@ I can use  my <b>Flashlight</b> <em>(F, or click on the app)</em><br><br>
 I have to find network with 5 bars using my <b>phone signal</b><br><br>
 I've seen some shadows moving, they seem to be attracted by light.<br>
 I should avoid them, or detect them with my <b>camera flash</b> <em>(spacebar, or click on the app)</em>`;
-    if(isGameOver) {
-        text = `That shadow put me back to my initial point.<br>I have to find my way back!`;
-    }
-    if(gamePhase === 2) {
-        text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear!<br><em>(use keyboard to rewrite text)</em>`;
-    }
-    if(gamePhase === 3) {
-        text = isMessageSent ? `I've send my message! When I'll have left that floor I'll be free!` : `Damn! Not enough signal to send my message.`;
-        text += `<br>I have to use my <b>compass</b> to find the exit, pointing in blue direction`;
-    }
-    if(gamePhase === 4) {
-        text = `Congratulations!<br> You are now free, and can go back online!<br><br>Thank you for playing!`;
+    if(status) {
+        if(status === 1) {
+            text = `That shadow put me back to my initial point.<br>I have to find my way back!`;
+        }
+        if(status === 2) {
+            text = `I have to find a place where signal has 5 bars before leaving this stage`;
+        }
+    } else {
+        if(gamePhase === 2) {
+            text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear!<br><em>(use keyboard to rewrite text)</em>`;
+        }
+        if(gamePhase === 3) {
+            text = isMessageSent ? `I've send my message! When I'll have left that floor I'll be free!` : `Damn! Not enough signal to send my message.`;
+            text += `<br>I have to use my <b>compass</b> to find the exit, pointing in blue direction`;
+        }
+        if(gamePhase === 4) {
+            text = `Congratulations!<br> You are now free, and can go back online!<br><br>Thank you for playing!`;
+        }
     }
     $('text').innerHTML = text;
 }
