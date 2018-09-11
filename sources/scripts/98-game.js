@@ -114,8 +114,7 @@ window.onload = function(){
     drawLoop();
 };
 
-function restartGame() {
-    gamePhase = 1;
+function restartGame(isGameOver) {
     isTorchLit = false;
     mapOffsetX = -50;
     mapOffsetY = -50;
@@ -129,6 +128,8 @@ function restartGame() {
     isFlashing = false;
     flashingDuration = 0;
     flashingDelay = 100;
+    $flashProgress.value = flashingDelay;
+    $flashProgress.classList.remove('off');
     shadowList = [
         {x: 80, y: 280},
         {x: 50, y: 700},
@@ -140,6 +141,11 @@ function restartGame() {
         {x: 720, y: 450},
         {x: 620, y: 140}
     ];
+    if(isGameOver) {
+        showIntro(isGameOver);
+    } else {
+        gamePhase = 1;
+    }
 }
 
 function initGame() {
@@ -151,18 +157,23 @@ function initGame() {
     showIntro();
 }
 
-function showIntro() {
+function showIntro(isGameOver) {
     document.body.classList.add('pause');
     isGamePaused = true;
     var text = `Ok...<br>
-        I'm here, alone, with my phone, offline.<br>
-        I have to find network using my <b>phone signal</b><br>
-        <br>
-        Nothing broken, I can <b>move</b> (arrows, ZQSD, WASD), or <b>sprint</b> (shift, controlled by my health app)<br>
-        I can use  my <b>Flashlight</b> (F, or click on the app)<br><br>
-        I've seen some shadows moving, they seems to be attracted by light, I should avoid them, or use my <b>camera flash</b> in case of emergency`;
+I'm here, alone, with my phone, offline.<br>
+<br>
+Nothing broken, I can <b>move</b> <em>(arrows, ZQSD, WASD)</em>,<br>
+or <b>sprint</b> <em>(shift, controlled by my health app)</em><br>
+I can use  my <b>Flashlight</b> <em>(F, or click on the app)</em><br><br>
+I have to find network with 5 bars using my <b>phone signal</b><br><br>
+I've seen some shadows moving, they seem to be attracted by light.<br>
+I should avoid them, or detect them with my <b>camera flash</b> <em>(spacebar, or click on the app)</em>`;
+    if(isGameOver) {
+        text = `That shadow put me back to my initial point.<br>I have to find my way back!`;
+    }
     if(gamePhase === 2) {
-        text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear! (use keyboard to rewrite text)`;
+        text = `I've found network!<br>I have to <b>type</b> my message quickly before signal disappear!<br><em>(use keyboard to rewrite text)</em>`;
     }
     if(gamePhase === 3) {
         text = isMessageSent ? `I've send my message! When I'll have left that floor I'll be free!` : `Damn! Not enough signal to send my message.`;
@@ -191,11 +202,13 @@ function endLevel() {
     if(isMessageSent) {
         gamePhase = 4;
         showIntro();
+        return;
     }
+    ++level;
     restartGame();
 }
 
 function gameOver() {
-    restartGame();
+    restartGame(true);
 }
 initGame();

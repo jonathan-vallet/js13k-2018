@@ -1,9 +1,44 @@
 $('phone-light').onclick = () => {
-    isTorchLit = !isTorchLit;
+    if(!isGamePaused) {
+        isTorchLit = !isTorchLit;
+    }
 };
 
 $('phone-camera').onclick = () => {
-    flash();
+    if(!isGamePaused) {
+        flash();
+    }
+};
+
+var notesTimeout;
+var settingTimeout;
+var musicTimeout;
+$('phone-notes').onclick = () => {
+    $('music').classList.remove('visible');
+    $('settings').classList.remove('visible');
+    $('notes').classList.toggle('visible');
+    clearTimeout(notesTimeout);
+    notesTimeout = setTimeout(() => {
+        $('notes').classList.remove('visible');
+    }, 5000);
+};
+$('phone-settings').onclick = () => {
+    $('music').classList.remove('visible');
+    $('notes').classList.remove('visible');
+    $('settings').classList.toggle('visible');
+    clearTimeout(settingTimeout);
+    settingTimeout = setTimeout(() => {
+        $('settings').classList.remove('visible');
+    }, 5000);
+};
+$('phone-sound').onclick = () => {
+    $('music').classList.toggle('visible');
+    $('settings').classList.remove('visible');
+    $('notes').classList.remove('visible');
+    clearTimeout(musicTimeout);
+    musicTimeout = setTimeout(() => {
+        $('music').classList.remove('visible');
+    }, 5000);
 };
 
 function flash() {

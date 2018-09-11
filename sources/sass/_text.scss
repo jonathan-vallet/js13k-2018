@@ -6,14 +6,12 @@
     height: 1000px;
     background: rgba(0, 0, 0, 0.8);
     display: none;
-    font-family: sans-serif;
     &::after {
         content: 'Press Enter to continue';
         position: absolute;
         bottom: 200px;
         right: 0;
         font-size: 20px;
-        color: #fff;
     }
 }
 
@@ -22,7 +20,6 @@
     font-size: 40px;
     text-align: center;
     letter-spacing: 3px;
-    color: $white;
     span {
         display: inline-block;
         vertical-align: baseline;
@@ -34,5 +31,8 @@
             opacity: 0;
             transform: translateY(-100px);
         }
+    }
+    em {
+        font-size: 70%;
     }
 }

@@ -56,6 +56,7 @@ var isSprintAvailable;
 var isFlashing;
 var flashingDuration;
 var flashingDelay;
+var level = 1;
 
 // Gameplay (level design var to ajust)
 const COUNTDOWN_TIME = 30000; // ms

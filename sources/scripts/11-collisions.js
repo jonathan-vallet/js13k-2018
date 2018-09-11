@@ -9,7 +9,6 @@ function checkCollision() {
 
     // Gets color data of the zone where the image will be drawn
     var colorData = gameContext.getImageData(x + xMovement, y + yMovement, 22, 22).data;
-
     if(isColliding(colorData)) {
         if(xDirection !== 0) {
             do {
@@ -21,7 +20,7 @@ function checkCollision() {
             do {
                 yMovement -= yDirection;
                 colorData = gameContext.getImageData(x, y + yMovement, 22, 22).data;
-            } while(isColliding(colorData))
+            } while(isColliding(colorData) && yMovement * yDirection > 0)
         }
     }
 
