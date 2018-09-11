@@ -224,9 +224,18 @@ $gear-size: 18px;
     line-height: 1.5;
     font-style: italic;
     transition: all 0.3s;
-    background: #ccc;
+    background: #e86;
     z-index: 3;
     &:not(.visible) {
         transform: translateY(100%);
     }
+}
+
+#settings {
+    background: #ccc;
+    padding: 50px 20px;
+    font-size: 18px;
+    b {
+        color: #000;   
+    }    
 }
