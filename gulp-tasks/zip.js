@@ -33,7 +33,6 @@ module.exports = function() {
         'phone-gear': 'ge',
         'phone-notes': 'no',
         'phone-sound': 'so',
-        'compass': 'co',
         'compass-pointer-wrapper': 'cpw',
         'compass-pointer': 'cp',
         'iphone-keyboard-wrapper': 'ikw',
