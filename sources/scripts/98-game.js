@@ -15,7 +15,7 @@ function draw() {
     } else {
         yDirection = 0;
     }
-    
+
     // Clear canvas
     gameContext.clearRect(0,0,$gameCanvas.width,$gameCanvas.height);
     gameContext.fillStyle = '#000';
