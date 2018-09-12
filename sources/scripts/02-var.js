@@ -82,10 +82,10 @@ var textList = [
     "I'll send an SOS to the world",
 //    "I hope that someone gets my...",
 
-    "Lorem ipsum dolor sit amet,",
+    "Lorem ipsum dolor sit amet",
 
     "Hello darkness, my old friend",
-    "I've come to talk with you again",
+//    "I've come to talk with you again",
 
     "I'm still standing yeah yeah yeah",
 //    "Mind, use your power",

@@ -154,6 +154,8 @@ function restartGame(isGameOver) {
         showIntro(1);
     } else {
         gamePhase = 1;
+        document.body.classList.remove('phase-compass');
+        showIntro();
     }
 }
 
@@ -178,11 +180,17 @@ I can use  my <b>Flashlight</b> <em>(F, or click on the app)</em><br><br>
 I have to find network with 5 bars using my <b>phone signal</b><br><br>
 I've seen some shadows moving, they seem to be attracted by light.<br>
 I should avoid them, or detect them with my <b>camera flash</b> <em>(spacebar, or click on the app)</em>`;
+    if(level > 1) {
+        text = `I'm on another stage, I have to find the <b>signal</b> on this one before leaving.`;
+    } 
     if(status) {
         if(status === 1) {
             text = `That shadow put me back to my initial point.<br>I have to find my way back!`;
         }
         if(status === 2) {
+            text = `I have to find a place where signal has 5 bars before leaving this stage`;
+        }
+        if(status === 3) {
             text = `I have to find a place where signal has 5 bars before leaving this stage`;
         }
     } else {
@@ -201,15 +209,19 @@ I should avoid them, or detect them with my <b>camera flash</b> <em>(spacebar, o
 }
 
 function stopPause() {
-    if(gamePhase !== 4) {
-        document.body.classList.remove('pause');
-        isGamePaused = false;
-    }
+    document.body.classList.remove('pause');
+    isGamePaused = false;
     if(gamePhase === 2) {
         startTextPhase();
     }
     if(gamePhase === 3) {
         startCompassPhase();
+    }
+    if(gamePhase == 4) {
+        level = 1;
+        currentTextIndex = 0;
+        gamePhase = 1;
+        restartGame();
     }
 }
 
@@ -219,8 +231,6 @@ function endLevel() {
         showIntro();
         return;
     }
-    document.body.classList.remove('phase-compass');
-    gamePhase = 1;
     ++level;
     restartGame();
 }

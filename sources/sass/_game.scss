@@ -26,7 +26,10 @@ body {
     }
     &.pause {
         #text-overlay {
-            display: block;   
+            display: block;
+            &:after {
+                display: block;
+            }
         }
         #text {
             font-size: 26px;

@@ -7,6 +7,7 @@
     background: rgba(0, 0, 0, 0.8);
     display: none;
     &::after {
+        display: none;
         content: 'Press Enter to continue';
         position: absolute;
         bottom: 200px;
