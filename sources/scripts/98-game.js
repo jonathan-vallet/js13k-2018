@@ -219,6 +219,8 @@ function endLevel() {
         showIntro();
         return;
     }
+    document.body.classList.remove('phase-compass');
+    gamePhase = 1;
     ++level;
     restartGame();
 }
