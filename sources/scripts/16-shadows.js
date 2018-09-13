@@ -10,14 +10,16 @@ function drawShadow() {
             return;
         }
         if(lihgtDistance < activeDistance + 20) {
-            if(!isFlashing && lihgtDistance < activeDistance - 5 && gamePhase !== 2) {
-                if(!shadow.v) {
-                    shadow.v = +new Date() + 1000;
-                }
-                if(now >= shadow.v) {
-                    var angle = Math.atan2(mapOffsetY + shadow.y - playerOffsetY, mapOffsetX + shadow.x - playerOffsetX);
-                    shadow.x -= SHADOW_SPEED * Math.cos(angle);
-                    shadow.y -= SHADOW_SPEED * Math.sin(angle);
+            if(lihgtDistance < activeDistance - 5 && gamePhase !== 2) {
+                if(!isFlashing) {
+                    if(!shadow.v) {
+                        shadow.v = +new Date() + 1000;
+                    }
+                    if(now >= shadow.v) {
+                        var angle = Math.atan2(mapOffsetY + shadow.y - playerOffsetY, mapOffsetX + shadow.x - playerOffsetX);
+                        shadow.x -= SHADOW_SPEED * Math.cos(angle);
+                        shadow.y -= SHADOW_SPEED * Math.sin(angle);
+                    }
                 }
                 if(!shadow.s) { // s = shown (revealed by any light)
                     shadow.s = true
